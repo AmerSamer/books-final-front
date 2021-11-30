@@ -1,0 +1,35 @@
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.welcomeUser{
+    text-align: left;
+     color: white ;
+     font-size: 2rem;
+     padding: 1em;
+}
+
+#search{
+    width: 30vw;
+    height: 7vh;
+    border: 3px solid gray;
+    border-radius: 30px;
+}
+#search:hover{
+    /* width: 30vw;
+    height: 7vh; */
+    border: 4px solid black;
+    /* border-radius: 30px; */
+}
+.searchIcon{
+    width: 4%;
+    height: 7vh;
+    border: 3px solid gray;
+    border-radius: 100px;
+}
+.searchIcon:hover{
+    /* width: 4%;
+    height: 7vh; */
+    border: 4px solid black;
+    /* border-radius: 100px; */
+}
