@@ -37,10 +37,14 @@ const Header = () => {
                 </div>
 
             </div>
-            <div className="ui segment">
+            <div className="ui segment secondary pointing menu">
                 <Link className="item" href="/newbook">
                     Add Book
                 </Link>
+                <Link className="item" href="/booksmanagement">
+                    Books Management
+                </Link>
+                
                 {/* <p style={{ textAlign: 'center' }}>Welcome to Amer's Bank</p> */}
             </div>
         </div>

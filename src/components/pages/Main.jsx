@@ -15,6 +15,7 @@ import styled from "styled-components";
 import { AccountBox } from '../accountBox';
 import Logout from './Logout';
 import AddBook from './AddBook';
+import BooksManagement from './BooksManagement';
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -30,7 +31,7 @@ const Main = ({}) => {
     const [allBooks, setAllBooks] = React.useState(null);
     React.useEffect(() => {
         getDataAccounts();
-        // getAllBooks();
+        getAllBooks();
     }, [])
 
     const getDataAccounts = async () => {
@@ -43,10 +44,13 @@ const Main = ({}) => {
         setAccount(d);
     }
     const getAllBooks = async () => {
-        const response = await axios.get(`http://localhost:4001/books/store`);
+        const response = await axios.get(`http://localhost:4001/books/store/getAllBooks`);
         setAllBooks(response.data);
-        // userActive(response.data)
     }
+    // const addAcctHandler = (book) => {
+    //     const allBooksArrayHelper = [...allBooks, book]
+    //     setAllBooks(allBooksArrayHelper)
+    // }
 
     return (
             // <div className="ui container">
@@ -60,7 +64,7 @@ const Main = ({}) => {
                                         
                         <Route path="/">
                             {
-                               account ? <Home account={account} /> : 'You Should to Log In To see Content'
+                                (account && allBooks) ? <Home account={account} accounts={accounts} allBooks={allBooks}/> : 'You Should to Log In To see Content'
                             }
                         </Route>  
                         <Route path="/login">
@@ -77,9 +81,15 @@ const Main = ({}) => {
                         </Route>     
                         <Route path="/newbook">
                             {
-                              account ? <AddBook account={account}/> : 'You are not login!'
+                              (account && allBooks) ? <AddBook account={account} accounts={accounts} allBooks={allBooks} /> : 'You are not login!'
                             }
-                        </Route>           
+                        </Route>    
+                        <Route path="/booksmanagement">
+                            {
+                                // working on
+                              (account) ? <BooksManagement account={account} /> : 'You are not login!'
+                            }
+                        </Route>        
                     </div>
                  </div>
              //</div> 
