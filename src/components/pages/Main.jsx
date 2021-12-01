@@ -17,6 +17,7 @@ import Logout from './Logout';
 import AddBook from './AddBook';
 import BooksManagement from './BooksManagement';
 import BookPage from './BookPage';
+import Chart from './Chart';
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -95,7 +96,12 @@ const Main = ({}) => {
                               (account) ? <BooksManagement account={account} /> : 'You are not login!'
                             }
                         </Route>   
-                          
+                        <Route path="/chart">
+                            {
+                                // working on
+                              (account) ? <Chart account={account} /> : 'You are not login!'
+                            }
+                        </Route>  
                     </div>
                  </div>
              //</div> 

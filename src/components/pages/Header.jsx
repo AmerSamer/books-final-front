@@ -11,7 +11,9 @@ const Header = () => {
                 <Link className="item" href="/">
                     Home
                 </Link>
-                
+                <Link className="item" href="/chart">
+                chart
+                </Link>
                 {/* <Link className="item" href="/getAccountById">
                  Account By Id
                 </Link>
