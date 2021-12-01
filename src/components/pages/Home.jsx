@@ -1,7 +1,8 @@
 import React from 'react';
 import AllBooks from './AllBooks';
 
-function Home({ account, accounts , allBooks }) {
+function Home({ account, accounts, allBooks }) {
+ 
     return (
         <div>
             <div style={{ width: "100%", height: "600px", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundImage: `url(https://images.pexels.com/photos/626986/pexels-photo-626986.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)` }}>

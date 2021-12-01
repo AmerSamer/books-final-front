@@ -37,8 +37,10 @@ body::-webkit-scrollbar {
 #grid {
     display: grid;
     /* height: 200px; */
-    height: 200vh;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    height: 60vh;
+    /* grid-template:   1fr / repeat(3, 1fr); */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
     gap: 20px 20px;
   }
   
@@ -50,6 +52,7 @@ body::-webkit-scrollbar {
 }
 
 .gridSon{
+    
     background-image: url("https://images.pexels.com/photos/10339367/pexels-photo-10339367.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") ;
     
 }
@@ -93,4 +96,12 @@ body::-webkit-scrollbar {
 }
 .buttonEditRemove{
     direction: rtl;
+}
+
+.book-Page{
+    text-align: center;
+    width: 95.7vw;
+    height: 100vh;
+    border: 2px solid blue;
+    padding: 5em;
 }

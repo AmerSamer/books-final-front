@@ -3,6 +3,7 @@ import Spinner from './Spinner'
 import axios from 'axios';
 import './style.css';
 
+
 function BooksManagement({ account }) {
     const [allAccountBooks, setAllAccountBooks] = React.useState(null);
 
@@ -68,7 +69,7 @@ function BooksManagement({ account }) {
                                     {/* {index<users.length-1 ? <hr/>:""} */}
                                     <div className="buttonEditRemove">
                                         <input type="button" className="removeBook" value="Remove" onClick={removeBookHandler} />
-                                        <input type="button" className="editBook" value="Edit" onClick={updateBookHandler} />
+                                        <input type="button" className="editBook" value="Edit" onClick={updateBookHandler} />  
                                         {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}
                                     </div>
                                 </div>

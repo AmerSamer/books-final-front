@@ -16,6 +16,7 @@ import { AccountBox } from '../accountBox';
 import Logout from './Logout';
 import AddBook from './AddBook';
 import BooksManagement from './BooksManagement';
+import BookPage from './BookPage';
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -29,6 +30,10 @@ const Main = ({}) => {
     const [accounts, setAccounts] = React.useState(null);
     const [account, setAccount] = React.useState(null);
     const [allBooks, setAllBooks] = React.useState(null);
+
+    const [selectedBook, setSelectedBook] = React.useState(null);
+
+
     React.useEffect(() => {
         getDataAccounts();
         getAllBooks();
@@ -89,7 +94,8 @@ const Main = ({}) => {
                                 // working on
                               (account) ? <BooksManagement account={account} /> : 'You are not login!'
                             }
-                        </Route>        
+                        </Route>   
+                          
                     </div>
                  </div>
              //</div> 
