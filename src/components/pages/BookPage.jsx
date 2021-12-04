@@ -14,23 +14,29 @@ const BookPage = ({ account, selectedBook }) => {
         setAllUserCarts(response.data);
     }
     const addToFavoritesHandler = () => {
-        // axios.put(`http://localhost:4001/books/store/addToFavorites/${selectedBook._id}`, (!selectedBook.favorites))
-        //     .then((res) => {
-        //         if (res.status === 200) {
-        //             if(!fav){
-        //                 setMsgFavoritesCart(`added To favorites Successfully`);
-        //                 setFav(!fav);
-        //             }else{
-        //                 setMsgFavoritesCart(`Removed from favorites Successfully`);
-        //                 setFav(!fav);
-        //             }
-        //         }
-        //         else {
-        //             alert("Something went wrong")
-        //         }
-        //     }).catch((err) => {
-        //         setMsgFavoritesCart('ERROR')
-        //     })
+        const newFavorites = {
+            user: account._id,
+            book: selectedBook._id,
+            // favorites: true
+        }
+        axios.post(`http://localhost:4001/books/store/newFavorites`, newFavorites)
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log(res.data.favorites);
+                    if(res.data.favorites){
+                        setMsgFavoritesCart(`added To favorites Successfully`);
+                        // setFav(!fav);
+                    }else{
+                        setMsgFavoritesCart(`Removed from favorites Successfully`);
+                        // setFav(!fav);
+                    }
+                }
+                else {
+                    alert("Something went wrong")
+                }
+            }).catch((err) => {
+                setMsgFavoritesCart('ERROR')
+            })
     }
     const addToCartHandler = () => {
         const found = allUserCarts.find((f) => ((f.user === account._id) && (f.book._id === selectedBook._id)))
