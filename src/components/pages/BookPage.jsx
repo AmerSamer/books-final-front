@@ -83,8 +83,6 @@ const BookPage = ({ account, selectedBook, comments }) => {
     }
     const addCommentHandler = () => {
         if (changeComment.comments) {
-            // console.log(account.name);
-            // const x = (new Date().getYear())
             axios.put(`http://localhost:4001/books/store/updateCommentBook/${selectedBook._id}`, changeComment)
                 .then((res) => {
                     if (res.status === 200) {
@@ -153,17 +151,18 @@ const BookPage = ({ account, selectedBook, comments }) => {
                             {/* id: {i.id} name: {i.name} userName: {i.userName} country: {i.country} total Amount: {total[index]} */}
                         </div>
                         <hr />
+                        // working on
                         <div>
-                            <select name="rating" id="rating">
-                                <option value="1">1</option>
+                            <select name="rating" id="rating" onChange={x}> // x ?
+                                <option value="1">1</option> 
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
-                            {/* <input type="text" placeholder='Something To Say...' /> */}
-                            <input type="button" value='rate' />
+                            <input type="button" value='rate' onClick={y}/> // y ?
                         </div>
+                        // working on
                         <hr />
                         <div>
                             {/* <input type="text" name={'comments'} placeholder={account.name} onChange={changeCommentHandler} /> */}

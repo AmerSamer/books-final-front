@@ -135,7 +135,9 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                                 </div>
                                                 <div className="extra">
                                                     <p>rating: {i.rating}</p>
-                                                    <p>comments: {i.comments}</p>
+                                                    <p>comments: <div>{i.comments.map((com) => {
+                                                        return <p key={com}>{com}</p>
+                                                    })}</div></p>
                                                 </div>
                                             </div>
                                         </div>
