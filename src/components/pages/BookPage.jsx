@@ -1,11 +1,20 @@
 import React from "react";
 import axios from "axios";
+var Filter = require('bad-words'),
+    filterBadWords = new Filter();
 
-const BookPage = ({ account, selectedBook }) => {
+const BookPage = ({ account, selectedBook, comments }) => {
+    const [selectedBookComm, setSelectedBookComm] = React.useState(null);
+
     const [allUserCarts, setAllUserCarts] = React.useState(null);
     const [msgFavoritesCart, setMsgFavoritesCart] = React.useState(null);
-    const [fav, setFav] = React.useState(null);
+    // const [fav, setFav] = React.useState(null);
     const [cart, setCart] = React.useState(null);
+    const [changeComment, setChangeComment] = React.useState({
+        comments: comments,
+    });
+    // const [msg, setMsg] = React.useState(null);
+
     React.useEffect(() => {
         getCartsUser();
     }, [cart])
@@ -23,10 +32,10 @@ const BookPage = ({ account, selectedBook }) => {
             .then((res) => {
                 if (res.status === 200) {
                     console.log(res.data.favorites);
-                    if(res.data.favorites){
+                    if (res.data.favorites) {
                         setMsgFavoritesCart(`added To favorites Successfully`);
                         // setFav(!fav);
-                    }else{
+                    } else {
                         setMsgFavoritesCart(`Removed from favorites Successfully`);
                         // setFav(!fav);
                     }
@@ -63,6 +72,37 @@ const BookPage = ({ account, selectedBook }) => {
         }
     }
 
+    const changeCommentHandler = (e) => {
+        if (e.target.value) {
+            setChangeComment({
+                ...changeComment,
+                [e.target.name]: "User Name: " +account.name+ ", Date: " +new Date().getDate() +"/"+ (new Date().getMonth()+1)+"/"+new Date().getFullYear()+ ", Comment: " +(filterBadWords.clean((e.target.value))) // filtering Bad Words from user input
+            })
+        }
+
+    }
+    const addCommentHandler = () => {
+        if (changeComment.comments) {
+            // console.log(account.name);
+            // const x = (new Date().getYear())
+            axios.put(`http://localhost:4001/books/store/updateCommentBook/${selectedBook._id}`, changeComment)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setMsgFavoritesCart(`Your Comment has been Added successfully`)
+                        const commentsArray = selectedBook.comments;
+                        commentsArray.push(changeComment.comments)
+                        setSelectedBookComm(commentsArray)
+                    }
+                    else {
+                        alert("Something went wrong")
+                    }
+                }).catch((err) => {
+                    setMsgFavoritesCart('ERROR')
+                })
+        } else {
+            setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
+        }
+    }
     return (
         <div className="ui container">
             <div className="users-details">
@@ -98,7 +138,12 @@ const BookPage = ({ account, selectedBook }) => {
                                     </div>
                                     <div className="extra">
                                         <p>rating: {selectedBook.rating}</p>
-                                        <p>comments: {selectedBook.comments}</p>
+                                        <div>comments: {selectedBookComm ? <div>{selectedBookComm.map((com) => {
+                                            return <p key={com}>{com}</p>
+                                        })}</div> : <div>{selectedBook.comments.map((com) => {
+                                            return <p key={com}>{com}</p>
+                                        })}</div>}</div>
+                                        {/* <p>{selectedBook.comments}</p> */}
                                     </div>
                                 </div>
                             </div>
@@ -121,8 +166,9 @@ const BookPage = ({ account, selectedBook }) => {
                         </div>
                         <hr />
                         <div>
-                            <input type="text" placeholder='Something To Say...' />
-                            <input type="button" value='Add Comment' />
+                            {/* <input type="text" name={'comments'} placeholder={account.name} onChange={changeCommentHandler} /> */}
+                            <input type="text" name={'comments'} placeholder='Something To Say...' onChange={changeCommentHandler} />
+                            <input type="button" value='Add Comment' onClick={addCommentHandler} />
                         </div>
                         <hr />
                         <div>
