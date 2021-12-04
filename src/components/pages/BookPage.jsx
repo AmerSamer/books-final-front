@@ -1,6 +1,62 @@
 import React from "react";
+import axios from "axios";
 
 const BookPage = ({ account, selectedBook }) => {
+    const [allUserCarts, setAllUserCarts] = React.useState(null);
+    const [msgFavoritesCart, setMsgFavoritesCart] = React.useState(null);
+    const [fav, setFav] = React.useState(null);
+    const [cart, setCart] = React.useState(null);
+    React.useEffect(() => {
+        getCartsUser();
+    }, [cart])
+    const getCartsUser = async () => {
+        const response = await axios.get(`http://localhost:4001/books/store/getAllcartsByUser/${account._id}`);
+        setAllUserCarts(response.data);
+    }
+    const addToFavoritesHandler = () => {
+        // axios.put(`http://localhost:4001/books/store/addToFavorites/${selectedBook._id}`, (!selectedBook.favorites))
+        //     .then((res) => {
+        //         if (res.status === 200) {
+        //             if(!fav){
+        //                 setMsgFavoritesCart(`added To favorites Successfully`);
+        //                 setFav(!fav);
+        //             }else{
+        //                 setMsgFavoritesCart(`Removed from favorites Successfully`);
+        //                 setFav(!fav);
+        //             }
+        //         }
+        //         else {
+        //             alert("Something went wrong")
+        //         }
+        //     }).catch((err) => {
+        //         setMsgFavoritesCart('ERROR')
+        //     })
+    }
+    const addToCartHandler = () => {
+        const found = allUserCarts.find((f) => ((f.user === account._id) && (f.book._id === selectedBook._id)))
+        if (!found) {
+            const newCart = {
+                user: account._id,
+                book: selectedBook._id,
+                cart: true
+            }
+            axios.post(`http://localhost:4001/books/store/newCarts`, newCart)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setMsgFavoritesCart(`added To cart Successfully`);
+                        setCart(true)
+                    }
+                    else {
+                        alert("Something went wrong")
+                    }
+                }).catch((err) => {
+                    setMsgFavoritesCart('ERR')
+                })
+        } else {
+            setMsgFavoritesCart('This Book Already in your Cart')
+        }
+    }
+
     return (
         <div className="ui container">
             <div className="users-details">
@@ -31,7 +87,7 @@ const BookPage = ({ account, selectedBook }) => {
                                         <p>category: {selectedBook.category}</p>
                                         <p>desc: {selectedBook.desc}</p>
                                         <p>price: {selectedBook.price} </p>
-                                        <p>Amount: {selectedBook.amount > 0 ? <span style={{color:'green'}}>✔️ Available</span> : <span style={{color:'red'}}>Not Available</span> }</p>
+                                        <p>Amount: {selectedBook.amount > 0 ? <span style={{ color: 'green' }}>✔️ Available</span> : <span style={{ color: 'red' }}>Not Available</span>}</p>
                                         {/* <p>purchase: {selectedBook.purchase}</p> */}
                                     </div>
                                     <div className="extra">
@@ -64,10 +120,15 @@ const BookPage = ({ account, selectedBook }) => {
                         </div>
                         <hr />
                         <div>
-                            <input type="button" value='Add To Cart 🛒' />
-                            <input type="button" value='Add To Favorites ✰' />
+                            <input type="button" value='Add To Cart 🛒' onClick={addToCartHandler} />
+                            <input type="button" value='Add To Favorites ✰' onClick={addToFavoritesHandler} />
+                        </div>
+                        <hr />
+                        <div>
+                            {msgFavoritesCart ? msgFavoritesCart : ''}
                         </div>
                     </div>
+
                     //  </div> 
                     // )
                     // }) : <div style={{ textAlign: 'center', fontSize: "20px" }}> You have no books in the list to manage </div>

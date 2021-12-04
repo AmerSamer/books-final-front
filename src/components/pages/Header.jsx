@@ -5,15 +5,10 @@ const Header = () => {
     return (
         <div>
             <div className="ui secondary pointing menu">
-                {/* <Link className="item" href="/login">
-                    Login
-                </Link> */}
                 <Link className="item" href="/">
                     Home
                 </Link>
-                <Link className="item" href="/chart">
-                chart
-                </Link>
+                
                 {/* <Link className="item" href="/getAccountById">
                  Account By Id
                 </Link>
@@ -31,6 +26,12 @@ const Header = () => {
                 </Link> */}
 
                 <div className="right menu">
+                    <Link className="item" href="/cart">
+                        🛒
+                    </Link>
+                    <Link className="item" href="/favorites">
+                        ✰
+                    </Link>
                     <Link className="item" href="/login">
                         Login
                     </Link>
@@ -47,7 +48,9 @@ const Header = () => {
                 <Link className="item" href="/booksmanagement">
                     Books Management
                 </Link>
-                
+                <Link className="item" href="/chart">
+                    chart
+                </Link>
                 {/* <p style={{ textAlign: 'center' }}>Welcome to Amer's Bank</p> */}
             </div>
         </div>

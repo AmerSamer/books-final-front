@@ -18,6 +18,8 @@ import AddBook from './AddBook';
 import BooksManagement from './BooksManagement';
 import BookPage from './BookPage';
 import Chart from './Chart';
+import Cart from './Cart';
+import Favorites from './Favorites';
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -53,10 +55,14 @@ const Main = ({}) => {
         const response = await axios.get(`http://localhost:4001/books/store/getAllBooks`);
         setAllBooks(response.data);
     }
-    // const addAcctHandler = (book) => {
-    //     const allBooksArrayHelper = [...allBooks, book]
-    //     setAllBooks(allBooksArrayHelper)
-    // }
+    const removeBookHandler = (id) => {
+        // const allBooksArrayHelper = [...allBooks, book]
+        // setAllBooks(allBooksArrayHelper)
+        let copyItems = allBooks.filter((item) => {
+            return item._id !== id
+        })
+        setAllBooks(copyItems)
+    }
 
     return (
             // <div className="ui container">
@@ -93,7 +99,7 @@ const Main = ({}) => {
                         <Route path="/booksmanagement">
                             {
                                 // working on
-                              (account) ? <BooksManagement account={account} /> : 'You are not login!'
+                              (account) ? <BooksManagement account={account} allBooks={removeBookHandler}/> : 'You are not login!'
                             }
                         </Route>   
                         <Route path="/chart">
@@ -102,6 +108,16 @@ const Main = ({}) => {
                               (account) ? <Chart account={account} /> : 'You are not login!'
                             }
                         </Route>  
+                        <Route path="/cart">
+                            {
+                              (account) ? <Cart account={account} /> : 'You are not login!'
+                            }
+                        </Route> 
+                        <Route path="/favorites">
+                            {
+                              (account) ? <Favorites account={account} /> : 'You are not login!'
+                            }
+                        </Route> 
                     </div>
                  </div>
              //</div> 

@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios"
 
 const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishing, amount, language, category, desc, price, user }) => {
-    // const [books, setBooks] = React.useState(null);
+    // const [allBooks, setAllBooks] = React.useState(null);
+    // const [refresh, setRefresh] = React.useState(null);
     const [msg, setMsg] = React.useState('')
     const [addBook, setAddBook] = React.useState({
         name: name,
@@ -13,8 +14,9 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
         category: category,
         desc: desc,
         price: price,
-        user: user
+        // user: account._id
     });
+    
     const addBookHandler = (e) => {
         setAddBook({
             ...addBook,
@@ -32,13 +34,13 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
     const addBookSubmitHandler = () => {
         // allBooks.find((n) => console.log(n.user))
         // console.log(addBook);
-        if (addBook.name && addBook.author && addBook.publishing && addBook.amount && addBook.language && addBook.category && addBook.price && addBook.user) {
+        if (addBook.name && addBook.author && addBook.publishing && addBook.amount && addBook.language && addBook.category && addBook.price) {
             if ((addBook.publishing >= 1500) && (addBook.publishing <= 2021)) {
                 if (addBook.amount > 0) {
                     if (addBook.price > 0) {
-                        const find = accounts.find((f) => f.email === addBook.user)
+                        const find = accounts.find((f) => f.email === account.email)
                         if (find) {
-                            const findBookNameDup = allBooks.find((n) => (n.name === addBook.name) && (n.user === find._id))
+                            const findBookNameDup = allBooks.find((n) => (n.name === addBook.name) && (n.user === account._id))
                             if (!findBookNameDup) {
                                 const idFind = find._id;
                                 const bookNewAdd = {
@@ -55,8 +57,8 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
                                 axios.post(`http://localhost:4001/books/store/newBook`, bookNewAdd)
                                     .then((res) => {
                                         if (res.status === 200) {
-                                            setMsg(`Book ${addBook.name}, was added successfully}`)
-                                            alert(`Book ${addBook.name}, was added successfully}`)
+                                            setMsg(`Book ${addBook.name}, was added successfully`)
+                                            alert(`Book ${addBook.name}, was added successfully`)
                                             window.location.reload(false);
                                         }
                                         else {
@@ -100,7 +102,7 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
                     category: <input type="text" name={'category'} onChange={addBookHandler} /> <br />
                     desc: <input type="text" name={'desc'} onChange={addBookHandler} /> <br />
                     price: <input type="number" min='0' name={'price'} onChange={addBookHandlerInt} /><br /> {/*  number  */}
-                    user email: <input type="text" name={'user'} onChange={addBookHandler} /> <br />
+                    {/* user email: <input type="text" name={'user'} onChange={addBookHandler} /> <br /> */}
 
                     <input type="button" value='Add Book' onClick={addBookSubmitHandler} /><br />
                     {msg ? msg : ''}

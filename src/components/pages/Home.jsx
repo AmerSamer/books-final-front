@@ -15,7 +15,7 @@ function Home({ account, accounts, allBooks }) {
                     <input type="button" className="searchIcon" value="🔍" />
                 </div>
             </div>
-            <AllBooks accounts={accounts} allBooks={allBooks}/>
+            <AllBooks account={account} accounts={accounts} allBooks={allBooks}/>
         </div>
     );
 }

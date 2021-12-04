@@ -4,25 +4,104 @@ import axios from 'axios';
 import './style.css';
 
 
-function BooksManagement({ account }) {
+function BooksManagement({ allBooks, account, name, author, publishing, language, category, desc, price, amount }) {
     const [allAccountBooks, setAllAccountBooks] = React.useState(null);
-
+    const [msg, setMsg] = React.useState(null);
+    const [isUpdateclicked, setIsUpdateclicked] = React.useState(false);
+    const [bookNameUpdated, setBookNameUpdated] = React.useState(null);
+    const [idBookUpdated, setIdBookUpdated] = React.useState(null);
+    const [itemsOnChange, setItemsOnChange] = React.useState({
+        name,
+        author,
+        publishing,
+        language,
+        category,
+        desc,
+        price,
+        amount
+    });
+    const [msgUpdated, setMsgUpdated] = React.useState(null);
+    const [refresh, setRefresh] = React.useState(null);
     React.useEffect(() => {
         getBooksAccount();
-    }, [])
+    }, [refresh])
     const getBooksAccount = async () => {
         const response = await axios.get(`http://localhost:4001/books/store/getAllBooksUser/${account._id}`); // working on
         setAllAccountBooks(response.data);
     }
-    const updateBookHandler = () => {
-
+    const updateBookHandler = (id, bookName) => {
+        // console.log(id);
+        setIsUpdateclicked(!isUpdateclicked)
+        setBookNameUpdated(bookName)
+        setIdBookUpdated(id)
+        setMsgUpdated(null)
     }
-    const removeBookHandler = () => {
-
+    const removeBookHandler = (id, name) => {
+        axios.delete(`http://localhost:4001/books/store/deleteBookByUser/${id}`)
+            .then((res) => {
+                if (res.status === 200) {
+                    setMsg(`Deleted ${name}, was made successfully`)
+                    setRefresh(true)
+                    allBooks(id)
+                    // alert(`Deleted ${name}, was made successfully`)
+                    // window.location.reload(false);
+                    // addItem(addAccount)
+                }
+                else {
+                    alert("Something went wrong")
+                }
+            }).catch((err) => {
+                setMsg('ERROR')
+            })
     }
-
+    const updateInputsHandler = (e) => {
+        setItemsOnChange({
+            ...itemsOnChange,
+            [e.target.name]: (e.target.value)
+        })
+    }
+    const updateInputsIntHandler = (e) => {
+        setItemsOnChange({
+            ...itemsOnChange,
+            [e.target.name]: parseInt(e.target.value)
+        })
+    }
+    const addUpdatedInputsHandler = () => {
+        if (!itemsOnChange.name && !itemsOnChange.author && !itemsOnChange.publishing && !itemsOnChange.language
+            && !itemsOnChange.category && !itemsOnChange.desc && !itemsOnChange.price && !itemsOnChange.amount) {
+            setMsgUpdated('You should change at least one inputs')
+        } else {
+            if ((!itemsOnChange.price) || (itemsOnChange.price && itemsOnChange.price > 0)) {
+                if ((!itemsOnChange.amount) || (itemsOnChange.amount && itemsOnChange.amount > 0)) {
+                    if ((!itemsOnChange.publishing) || (itemsOnChange.publishing && itemsOnChange.publishing >= 1500 && itemsOnChange.publishing <= 2021)) {
+                        axios.put(`http://localhost:4001/books/store/updateBookByUser/${idBookUpdated}`, itemsOnChange)
+                            .then((res) => {
+                                if (res.status === 200) {
+                                    setMsgUpdated(`Changed was added successfully`)
+                                    alert(`Changed was added successfully`)
+                                    window.location.reload(false);
+                                    // addItem(creditAccount)
+                                }
+                                else {
+                                    alert("Something went wrong")
+                                }
+                            }).catch((err) => {
+                                setMsg('ERROR')
+                            })
+                    } else {
+                        setMsgUpdated('You should put correct year [1500-2021]')
+                    }
+                } else {
+                    setMsgUpdated('You should put an possitive amount')
+                }
+            } else {
+                setMsgUpdated('You should put a possitive price')
+            }
+        }
+    }
     return (
         <div className="ui container">
+            {msg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{msg}</div> : ''}
             <div className="users-details">
                 {
                     allAccountBooks ? allAccountBooks.map((i, index) => {
@@ -68,10 +147,31 @@ function BooksManagement({ account }) {
                                     <hr />
                                     {/* {index<users.length-1 ? <hr/>:""} */}
                                     <div className="buttonEditRemove">
-                                        <input type="button" className="removeBook" value="Remove" onClick={removeBookHandler} />
-                                        <input type="button" className="editBook" value="Edit" onClick={updateBookHandler} />  
+                                        <input type="button" className="removeBook" value="Remove" onClick={() => removeBookHandler(i._id, i.name)} />
+                                        <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} />
                                         {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}
                                     </div>
+                                    {((isUpdateclicked) && (bookNameUpdated === i.name)) ? (
+                                        <div>
+                                            <div className="">
+                                                <hr /><div>Update Inputs That you want:</div>
+                                                name: <input type="text" name={'name'} onChange={updateInputsHandler} />
+                                                author:<input type="text" name={'author'} onChange={updateInputsHandler} />
+                                                publishing:<input type="number" name={'publishing'} onChange={updateInputsIntHandler} />
+                                                language: <input type="text" name={'language'} onChange={updateInputsHandler} />
+                                                category:<input type="text" name={'category'} onChange={updateInputsHandler} />
+                                                desc:<input type="text" name={'desc'} onChange={updateInputsHandler} />
+                                                price: <input type="number" name={'price'} onChange={updateInputsIntHandler} />
+                                                amount:<input type="number" name={'amount'} onChange={updateInputsIntHandler} />
+                                                <br />
+                                                <input type="button" value="Update" onClick={addUpdatedInputsHandler} />
+                                            </div>
+                                            <div>
+                                                {msgUpdated ? msgUpdated : ''}
+                                            </div>
+                                        </div>
+                                    ) : ''}
+
                                 </div>
                             </div>
                         )
