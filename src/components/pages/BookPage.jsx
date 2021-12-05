@@ -3,7 +3,7 @@ import axios from "axios";
 var Filter = require('bad-words'),
     filterBadWords = new Filter();
 
-const BookPage = ({ account, selectedBook, comments }) => {
+const BookPage = ({ account, selectedBook, comments, rating }) => {
     const [selectedBookComm, setSelectedBookComm] = React.useState(null);
 
     const [allUserCarts, setAllUserCarts] = React.useState(null);
@@ -13,7 +13,10 @@ const BookPage = ({ account, selectedBook, comments }) => {
     const [changeComment, setChangeComment] = React.useState({
         comments: comments,
     });
-    // const [msg, setMsg] = React.useState(null);
+    const [ratingSt, setRatingSt] = React.useState({
+        rating: rating,
+    });
+    const [newRating, setNewRating] = React.useState(null);
 
     React.useEffect(() => {
         getCartsUser();
@@ -101,6 +104,34 @@ const BookPage = ({ account, selectedBook, comments }) => {
             setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
         }
     }
+    const selectRatingHandler = (e) => {
+        // setRatingSt(parseInt(e.target.value))
+        if (e.target.value) {
+            setRatingSt({
+                ...ratingSt,
+                [e.target.name]: parseInt(e.target.value)
+            })
+        }
+    }
+    const addSelectRatingHandler = () => {
+        if (ratingSt) {
+            axios.put(`http://localhost:4001/books/store/updateRatingBook/${selectedBook._id}`, ratingSt)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setMsgFavoritesCart(`Your rating has been Added successfully`)
+                        const ratingsCalc = (selectedBook.rating * selectedBook.purchase + ratingSt.rating) / (selectedBook.purchase + 1);
+                        setNewRating(ratingsCalc)
+                    }
+                    else {
+                        alert("Something went wrong")
+                    }
+                }).catch((err) => {
+                    setMsgFavoritesCart('ERROR')
+                })
+        } else {
+            setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
+        }
+    }
     return (
         <div className="ui container">
             <div className="users-details">
@@ -135,7 +166,9 @@ const BookPage = ({ account, selectedBook, comments }) => {
                                         {/* <p>purchase: {selectedBook.purchase}</p> */}
                                     </div>
                                     <div className="extra">
-                                        <p>rating: {selectedBook.rating}</p>
+                                        {/* <p>rating: {selectedBook.rating}</p> */}
+                                        <div>rating: {newRating ? newRating : selectedBook.rating }</div>
+
                                         <div>comments: {selectedBookComm ? <div>{selectedBookComm.map((com) => {
                                             return <p key={com}>{com}</p>
                                         })}</div> : <div>{selectedBook.comments.map((com) => {
@@ -151,18 +184,18 @@ const BookPage = ({ account, selectedBook, comments }) => {
                             {/* id: {i.id} name: {i.name} userName: {i.userName} country: {i.country} total Amount: {total[index]} */}
                         </div>
                         <hr />
-                        // working on
+                        
                         <div>
-                            <select name="rating" id="rating" onChange={x}> // x ?
-                                <option value="1">1</option> 
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
+                            <select name="rating" id="rating" onChange={selectRatingHandler}>
+                                <option name={'rating'} value="1">1</option> 
+                                <option name={'rating'} value="2">2</option>
+                                <option name={'rating'} value="3">3</option>
+                                <option name={'rating'} value="4">4</option>
+                                <option name={'rating'} value="5">5</option>
                             </select>
-                            <input type="button" value='rate' onClick={y}/> // y ?
+                            <input type="button" value='rate' onClick={addSelectRatingHandler}/> 
                         </div>
-                        // working on
+                        
                         <hr />
                         <div>
                             {/* <input type="text" name={'comments'} placeholder={account.name} onChange={changeCommentHandler} /> */}

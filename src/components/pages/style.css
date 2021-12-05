@@ -105,3 +105,18 @@ body::-webkit-scrollbar {
     border: 2px solid blue;
     padding: 5em;
 }
+
+.animation{
+  padding-top: 2em;
+  width: 100%;
+  height: 500px;
+  background-image: url('https://cdn.themeasuredmom.com/wp-content/uploads/2014/09/saras-secret.jpg');
+  animation-name: example;
+  animation-duration: 10s;
+}
+@keyframes example {
+    0%   {background-image: url('https://cdn.themeasuredmom.com/wp-content/uploads/2014/09/saras-secret.jpg');}
+    50%  {background-image: url('https://www.friendshipcircle.org/blog/wp-content/uploads/2011/11/Special-Needs-Books.jpg');}
+    /* 50%  {background-color: blue;} */
+    100% {background-image: url('https://www.thechaosandtheclutter.com/wp-content/uploads/2013/06/my-brother-charlie.jpg');}
+  }

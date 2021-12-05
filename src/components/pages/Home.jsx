@@ -1,6 +1,6 @@
 import React from 'react';
 import AllBooks from './AllBooks';
-
+import './style.css'
 function Home({ account, accounts, allBooks }) {
  
     return (
@@ -15,6 +15,9 @@ function Home({ account, accounts, allBooks }) {
                     <input type="button" className="searchIcon" value="🔍" />
                 </div>
             </div>
+            <div className={'animation'}>
+
+                </div>
             <AllBooks account={account} accounts={accounts} allBooks={allBooks}/>
         </div>
     );
