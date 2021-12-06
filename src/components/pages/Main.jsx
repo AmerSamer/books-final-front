@@ -20,6 +20,8 @@ import BookPage from './BookPage';
 import Chart from './Chart';
 import Cart from './Cart';
 import Favorites from './Favorites';
+import SpecialBooks from './SpecialBooks';
+import AllBooksPage from './AllBooksPage';
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -138,6 +140,16 @@ const Main = ({ }) => {
                 <Route path="/favorites">
                     {
                         (account) ? <Favorites account={account} /> : 'You are not login!'
+                    }
+                </Route>
+                <Route path="/specialBooks">
+                    {
+                        (account && allBooks) ? <SpecialBooks account={account} allBooks={allBooks}/> : 'You are not login!'
+                    }
+                </Route>
+                <Route path="/allBooks">
+                    {
+                        (account && allBooks) ? <AllBooksPage account={account} allBooks={allBooks}/> : 'You are not login!'
                     }
                 </Route>
             </div>

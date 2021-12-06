@@ -61,7 +61,60 @@ body::-webkit-scrollbar {
     /* height: 20vh; */
     /* background-image: url("https://images.pexels.com/photos/4305470/pexels-photo-4305470.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") */
 }
+#gridd {
+    display: grid;
+    /* height: 200px; */
+    height: 60vh;
+    /* grid-template:   1fr / repeat(3, 1fr); */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    gap: 20px 20px;
+  }
+  
+#gridd > div {
+    border: 1px solid green;
+    background-color: gray;
+    /* width: 20vw;
+    height: 20vh; */
+}
 
+.griddSon{
+    
+    background-image: url("https://images.pexels.com/photos/10339367/pexels-photo-10339367.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") ;
+    
+}
+.griddSon:hover{
+    opacity: 0.5;
+    /* height: 20vh; */
+    /* background-image: url("https://images.pexels.com/photos/4305470/pexels-photo-4305470.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") */
+}
+#griddd {
+    display: grid;
+    /* height: 200px; */
+    height: 60vh;
+    /* grid-template:   1fr / repeat(3, 1fr); */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    gap: 20px 20px;
+  }
+  
+#griddd > div {
+    border: 1px solid green;
+    background-color: gray;
+    /* width: 20vw;
+    height: 20vh; */
+}
+
+.gridddSon{
+    
+    background-image: url("https://images.pexels.com/photos/10339367/pexels-photo-10339367.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") ;
+    
+}
+.gridddSon:hover{
+    opacity: 0.5;
+    /* height: 20vh; */
+    /* background-image: url("https://images.pexels.com/photos/4305470/pexels-photo-4305470.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") */
+}
 .editBook{
     width: 6vw;
     height: 4vh;
@@ -107,16 +160,20 @@ body::-webkit-scrollbar {
 }
 
 .animation{
-  padding-top: 2em;
+  margin-top: 3em;
   width: 100%;
-  height: 500px;
-  background-image: url('https://cdn.themeasuredmom.com/wp-content/uploads/2014/09/saras-secret.jpg');
+  height: 650px;
+  background-image: url('https://www.perma-bound.com/ws/image/cover/160069/m?ref=vd');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   animation-name: example;
-  animation-duration: 10s;
+  animation-duration: 25s;
+  animation-iteration-count: infinite;
 }
 @keyframes example {
-    0%   {background-image: url('https://cdn.themeasuredmom.com/wp-content/uploads/2014/09/saras-secret.jpg');}
-    50%  {background-image: url('https://www.friendshipcircle.org/blog/wp-content/uploads/2011/11/Special-Needs-Books.jpg');}
+    50%   {background-image: url('http://www.un.org/disabilities/documents/idpd/idpd_poster_generic.jpg');}
+    75%  {background-image: url('https://www.echo.net.au/wp-content/uploads/2017/06/The-Girl-from-Aleppo-Nujeens-Escape-from-War-to-Freedom.jpg');}
     /* 50%  {background-color: blue;} */
-    100% {background-image: url('https://www.thechaosandtheclutter.com/wp-content/uploads/2013/06/my-brother-charlie.jpg');}
+    100% {background-image: url('https://www.perma-bound.com/ws/image/cover/160069/m?ref=vd');}
   }

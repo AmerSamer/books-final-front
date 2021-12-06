@@ -15,9 +15,7 @@ function Home({ account, accounts, allBooks }) {
                     <input type="button" className="searchIcon" value="🔍" />
                 </div>
             </div>
-            <div className={'animation'}>
-
-                </div>
+            <a href='/specialBooks'><div className={'animation'}></div></a>
             <AllBooks account={account} accounts={accounts} allBooks={allBooks}/>
         </div>
     );
