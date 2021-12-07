@@ -46,7 +46,7 @@ export function SignupForm(props) {
           if (schema.validate(addAccount.password)) {
             const find = props.accounts.find((f) => f.email === addAccount.email)
             if (!find) {
-              axios.post(`http://localhost:4001/books/store`, addAccount)
+              axios.post(`https://books-store-back.herokuapp.com/books/store`, addAccount)
                 .then((res) => {
                   if (res.status === 200) {
                     setMsg('Account Added Successfully')

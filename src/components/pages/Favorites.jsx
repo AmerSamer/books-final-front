@@ -11,12 +11,12 @@ const Favorites = ({ account }) => {
         getFavoritesUser();
     }, [refresh])
     const getFavoritesUser = async () => {
-        const response = await axios.get(`http://localhost:4001/books/store/getAllFavoritesByUser/${account._id}`);
+        const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllFavoritesByUser/${account._id}`);
         setAllUserFavorites(response.data);
     }
 
     const removeBookFavoritesHandler = (id, name) => {
-        axios.put(`http://localhost:4001/books/store/updateUserFavorites/${id}`)
+        axios.put(`https://books-store-back.herokuapp.com/books/store/updateUserFavorites/${id}`)
         .then((res) => {
             if (res.status === 200) {
                 setDeleteMsg(`Deleted ${name}, was made successfully`)

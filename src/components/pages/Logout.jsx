@@ -8,7 +8,7 @@ const Logout = ({account}) => {
         // const find = account.find((f) => ((f.email === account.email) && (f.password === account.password)))
         // if (find) {
             account.active = false
-            axios.put(`http://localhost:4001/books/store/logout/${account._id}`)
+            axios.put(`https://books-store-back.herokuapp.com/books/store/logout/${account._id}`)
                 .then((res) => {
                     if (res.status === 200) {
                         // setMsg('Login Successfully')

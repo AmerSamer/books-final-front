@@ -22,7 +22,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
         getCartsUser();
     }, [cart])
     const getCartsUser = async () => {
-        const response = await axios.get(`http://localhost:4001/books/store/getAllcartsByUser/${account._id}`);
+        const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllcartsByUser/${account._id}`);
         setAllUserCarts(response.data);
     }
     const addToFavoritesHandler = () => {
@@ -31,7 +31,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
             book: selectedBook._id,
             // favorites: true
         }
-        axios.post(`http://localhost:4001/books/store/newFavorites`, newFavorites)
+        axios.post(`https://books-store-back.herokuapp.com/books/store/newFavorites`, newFavorites)
             .then((res) => {
                 if (res.status === 200) {
                     console.log(res.data.favorites);
@@ -58,7 +58,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                 book: selectedBook._id,
                 cart: true
             }
-            axios.post(`http://localhost:4001/books/store/newCarts`, newCart)
+            axios.post(`https://books-store-back.herokuapp.com/books/store/newCarts`, newCart)
                 .then((res) => {
                     if (res.status === 200) {
                         setMsgFavoritesCart(`added To cart Successfully`);
@@ -86,7 +86,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
     }
     const addCommentHandler = () => {
         if (changeComment.comments) {
-            axios.put(`http://localhost:4001/books/store/updateCommentBook/${selectedBook._id}`, changeComment)
+            axios.put(`https://books-store-back.herokuapp.com/books/store/updateCommentBook/${selectedBook._id}`, changeComment)
                 .then((res) => {
                     if (res.status === 200) {
                         setMsgFavoritesCart(`Your Comment has been Added successfully`)
@@ -115,7 +115,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
     }
     const addSelectRatingHandler = () => {
         if (ratingSt) {
-            axios.put(`http://localhost:4001/books/store/updateRatingBook/${selectedBook._id}`, ratingSt)
+            axios.put(`https://books-store-back.herokuapp.com/books/store/updateRatingBook/${selectedBook._id}`, ratingSt)
                 .then((res) => {
                     if (res.status === 200) {
                         setMsgFavoritesCart(`Your rating has been Added successfully`)

@@ -11,11 +11,11 @@ const Cart = ({ account }) => {
         getCartsUser();
     }, [refresh])
     const getCartsUser = async () => {
-        const response = await axios.get(`http://localhost:4001/books/store/getAllcartsByUser/${account._id}`);
+        const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllcartsByUser/${account._id}`);
         setAllUserCarts(response.data);
     }
     const removeBookCartHandler = (id,name) => {
-        axios.delete(`http://localhost:4001/books/store/deleteBookCart/${id}`)
+        axios.delete(`https://books-store-back.herokuapp.com/books/store/deleteBookCart/${id}`)
         .then((res) => {
             if (res.status === 200) {
                 setDeleteMsg(`Deleted ${name}, was made successfully`)

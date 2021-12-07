@@ -26,7 +26,7 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
         getBooksAccount();
     }, [refresh])
     const getBooksAccount = async () => {
-        const response = await axios.get(`http://localhost:4001/books/store/getAllBooksUser/${account._id}`); // working on
+        const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllBooksUser/${account._id}`); // working on
         setAllAccountBooks(response.data);
     }
     const updateBookHandler = (id, bookName) => {
@@ -37,7 +37,7 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
         setMsgUpdated(null)
     }
     const removeBookHandler = (id, name) => {
-        axios.delete(`http://localhost:4001/books/store/deleteBookByUser/${id}`)
+        axios.delete(`https://books-store-back.herokuapp.com/books/store/deleteBookByUser/${id}`)
             .then((res) => {
                 if (res.status === 200) {
                     setMsg(`Deleted ${name}, was made successfully`)
@@ -74,7 +74,7 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
             if ((!itemsOnChange.price) || (itemsOnChange.price && itemsOnChange.price > 0)) {
                 if ((!itemsOnChange.amount) || (itemsOnChange.amount && itemsOnChange.amount > 0)) {
                     if ((!itemsOnChange.publishing) || (itemsOnChange.publishing && itemsOnChange.publishing >= 1500 && itemsOnChange.publishing <= 2021)) {
-                        axios.put(`http://localhost:4001/books/store/updateBookByUser/${idBookUpdated}`, itemsOnChange)
+                        axios.put(`https://books-store-back.herokuapp.com/books/store/updateBookByUser/${idBookUpdated}`, itemsOnChange)
                             .then((res) => {
                                 if (res.status === 200) {
                                     setMsgUpdated(`Changed was added successfully`)

@@ -54,7 +54,7 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
                                     price: addBook.price,
                                     user: idFind
                                 }
-                                axios.post(`http://localhost:4001/books/store/newBook`, bookNewAdd)
+                                axios.post(`https://books-store-back.herokuapp.com/books/store/newBook`, bookNewAdd)
                                     .then((res) => {
                                         if (res.status === 200) {
                                             setMsg(`Book ${addBook.name}, was added successfully`)

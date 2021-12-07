@@ -132,7 +132,7 @@ export function AccountBox(props) {
 }, [])
 
 const getDataAccounts = async () => {
-    const response = await axios.get(`http://localhost:4001/books/store`);
+    const response = await axios.get(`https://books-store-back.herokuapp.com/books/store`);
     setAccounts(response.data);
 }
 const addAcctHandler = (acct) => {
