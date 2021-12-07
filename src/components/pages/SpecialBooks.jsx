@@ -2,17 +2,17 @@ import React from "react";
 import BookPage from "./BookPage";
 
 const SpecialBooks = ({ account, allBooks }) => {
-    const [selectedBook, setSelectedBook] = React.useState(null);
+    const [selectedBookk, setSelectedBookk] = React.useState(null);
 
     const x = (b) => {
-        if (selectedBook) {
-            if (selectedBook._id !== b._id) {
-                setSelectedBook(b)
+        if (selectedBookk) {
+            if (selectedBookk._id !== b._id) {
+                setSelectedBookk(b)
             } else {
-                setSelectedBook(null)
+                setSelectedBookk(null)
             }
         } else {
-            setSelectedBook(b)
+            setSelectedBookk(b)
         }
     }
     return (
@@ -23,10 +23,10 @@ const SpecialBooks = ({ account, allBooks }) => {
                 return (
 
                     allB.category === 'specialBook' ? (
-                        <div key={index} onClick={() => x(allB)}>
+                        <div key={index} >
 
 
-                            <div className="ui segment">
+                            <div className="ui segment" onClick={() => x(allB)}>
                                 <div className="ui divided items">
                                     <div className="item" >
                                         <div className="image">
@@ -65,7 +65,7 @@ const SpecialBooks = ({ account, allBooks }) => {
                             </div>
 
                             <div>
-                                {((selectedBook) && (selectedBook._id === allB._id)) ? <BookPage account={account} selectedBook={selectedBook} /> : ''}
+                                {((selectedBookk) && (selectedBookk._id === allB._id)) ? <BookPage account={account} selectedBook={selectedBookk} /> : ''}
                             </div>
 
 

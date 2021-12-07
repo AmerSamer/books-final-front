@@ -39,7 +39,7 @@ const Cart = ({ account }) => {
     }
     return (
         <>
-            <div className="ui container">
+            <div className="ui container" >
             {deleteMsg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{deleteMsg}</div> : ''}
             <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Your Cart:</div><br/>
                 {/* {allUserCarts ? console.log(allUserCarts) : ''} */}

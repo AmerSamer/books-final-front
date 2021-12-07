@@ -3,13 +3,25 @@ import './style.css';
 import BookPage from "./BookPage";
 import Footer from "./Footer";
 let higherPurchaseArrayHelper = [];
-let randomBooksArrayHelper = [];
+let xy = [];
+let xyz = [];
+const shuffle = (a) => {
+    let j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
 const AllBooks = ({ account, accounts, allBooks }) => {
     const [selectedBook, setSelectedBook] = React.useState(null);
     const [selectedBookNewest, setSelectedBookNewest] = React.useState(null);
     const [selectedBookAllBooksRandom, setSelectedBookAllBooksRandom] = React.useState(null);
-    // let xx = shuffle(allBooks).slice(0,4)
-    // let randomBooksArrayHelper = [xx];
+    const [higherPurchase, setHigherPurchase] = React.useState([]);
+    const [shuffleAll, setShuffleAll] = React.useState([]);
     
     React.useEffect(() => {
         higherPurchaseSorting();
@@ -50,42 +62,33 @@ const AllBooks = ({ account, accounts, allBooks }) => {
         }
     }
     const higherPurchaseSorting = () => {
-        allBooks.map((b, index) => {
-            return higherPurchaseArrayHelper.push(b.purchase)
-        })
-        return higherPurchaseArrayHelper.sort((a, b) => b - a)
-    }
-    const shuffle = (a) => {
-        let j, x, i;
-        for (i = a.length - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1));
-            x = a[i];
-            a[i] = a[j];
-            a[j] = x;
-        }
-        return a;
+        xy=[]
+        for(let i = 0 ; i < allBooks.length ; i++){
+            xy.push(allBooks[i].purchase);
+        }       
+        setHigherPurchase(xy.sort((a, b) => b - a))
     }
     const shuffleRandomBooks = () => {
-        allBooks.map((b, index) => {
-            return randomBooksArrayHelper.push(b)
-        })
-        shuffle(randomBooksArrayHelper)
+        for(let i = 0 ; i < allBooks.length ; i++){
+            xyz.push(allBooks[i]);
+        }       
+        setShuffleAll(shuffle(xyz))
     }
     
     return (
         <div>
             <div style={{ textAlign: "center", padding: "6rem", fontSize: '20px' }}>
                 <div>Top Purchases</div>
+                {console.log(higherPurchase)}
             </div>
-            {console.log("higherPurchaseArrayHelper",higherPurchaseArrayHelper)}
             <div>
                 <div id="grid">
-                    {allBooks ? allBooks.sort((a,b) => b-a).slice(0,4).map((b, index) => {
+                    {((allBooks) && (higherPurchase.length !== 0)) ? allBooks.map((b, index) => {
                         // (index === allBooks.length - 1 || index === allBooks.length - 2 || index === allBooks.length - 3 || index === allBooks.length - 4)
                         return (
-                            // ((higherPurchaseArrayHelper.length !== 0) && (b.purchase === higherPurchaseArrayHelper[0] || b.purchase === higherPurchaseArrayHelper[1] || b.purchase === higherPurchaseArrayHelper[2] || b.purchase === higherPurchaseArrayHelper[3])) ? (
+                            ((higherPurchase.length !== 0) && (b.purchase === higherPurchase[0] || b.purchase === higherPurchase[1] || b.purchase === higherPurchase[2] || b.purchase === higherPurchase[3])) ? (
                                 <div key={b._id} className={'gridSon'} onClick={() => topPurchasesHandler(b)}> {b.name} </div>
-                            // ) : ''
+                            ) : ''
                         )
                     }) : ''}
                 </div>
@@ -119,10 +122,8 @@ const AllBooks = ({ account, accounts, allBooks }) => {
             </div>
             <div>
                 <div id="griddd">
-                   {/* {console.log(randomBooksArrayHelper)} */}
-                    {allBooks && randomBooksArrayHelper.length !== 0 ? randomBooksArrayHelper.map((b, index) => {
-                        // (higherPurchaseArrayHelper.length !== 0) && (b.purchase === higherPurchaseArrayHelper[0] || b.purchase === higherPurchaseArrayHelper[1] || b.purchase === higherPurchaseArrayHelper[2] || b.purchase === higherPurchaseArrayHelper[3])
-                        // (index === allBooks.length - 1 || index === allBooks.length - 2 || index === allBooks.length - 3 || index === allBooks.length - 4)
+                  
+                    {allBooks && shuffleAll ? shuffleAll.map((b, index) => {                        
                         return (
                             (index === 0 || index === 1 || index === 2 || index === 3) ? (
                                 <div key={b._id} className={'gridddSon'} onClick={() => randomBooksHandler(b)}>

@@ -92,7 +92,7 @@ const Main = ({ }) => {
         // <div className="ui container">
 
         <div className="ui segment">
-
+        
             {/* main menu */}
             <Header />
 
