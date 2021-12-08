@@ -10,6 +10,8 @@ import {
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 import axios from 'axios';
+import Main from "../pages/Main";
+import Route from "../pages/Route";
 // import Main from "../pages/Main";
 var validator = require("email-validator");
 var passwordValidator = require('password-validator');
@@ -31,6 +33,7 @@ export function LoginForm(props) {
     password: null
   });
   const [msg, setMsg] = React.useState('')
+  // const [userLogin, setUserLogin] = React.useState(null)
 
   const loginHandler = (e) => {
     setAccount({
@@ -53,6 +56,7 @@ export function LoginForm(props) {
                   .then((res) => {
                     if (res.status === 200) {
                       setMsg('Login Successfully')
+                      // setUserLogin(find)
                       // addItem(addAccount)
                       // window.location.reload(false);
                       alert(`${find.email} login successfully`)
@@ -79,6 +83,7 @@ export function LoginForm(props) {
   }
   return (
     <>
+    {/* {console.log(userLogin)} */}
       <BoxContainer>
         <FormContainer>
           <Input type="email" name="email" placeholder="Email" onChange={loginHandler} />
@@ -99,6 +104,7 @@ export function LoginForm(props) {
           </BoldLink>
         </MutedLink>
       </BoxContainer>
+      
       {/* <BoxContainer>
         <FormContainer>
           <Input type="email" name="email" placeholder="Email" onChange={loginHandler} />

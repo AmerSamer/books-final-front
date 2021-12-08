@@ -102,8 +102,6 @@ const AllBooks = ({ account, accounts, allBooks }) => {
             <div>
                 <div id="gridd">
                     {allBooks ? allBooks.map((b, index) => {
-                        // (higherPurchaseArrayHelper.length !== 0) && (b.purchase === higherPurchaseArrayHelper[0] || b.purchase === higherPurchaseArrayHelper[1] || b.purchase === higherPurchaseArrayHelper[2] || b.purchase === higherPurchaseArrayHelper[3])
-                        // (index === allBooks.length - 1 || index === allBooks.length - 2 || index === allBooks.length - 3 || index === allBooks.length - 4)
                         return (
                             ((index === allBooks.length - 1 || index === allBooks.length - 2 || index === allBooks.length - 3 || index === allBooks.length - 4)) ? (
                                 <div key={b._id} className={'griddSon'} onClick={() => newestBooksHandler(b)}>

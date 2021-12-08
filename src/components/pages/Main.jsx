@@ -31,9 +31,11 @@ const AppContainer = styled.div`
   justify-content: center;
 `;
 
-const Main = ({ }) => {
+const Main = ({}) => {
     const [accounts, setAccounts] = React.useState(null);
     const [account, setAccount] = React.useState(null);
+    const [accountExtra, setAccountExtra] = React.useState(null);
+    const [xx, setXx] = React.useState(null);
     const [allBooks, setAllBooks] = React.useState(null);
     const [allBooksByUser, setAllBooksByUser] = React.useState(null);
     const [allBooksByUserPurchase, setAllBooksByUserPurchase] = React.useState(null);
@@ -54,12 +56,21 @@ const Main = ({ }) => {
         userActive(response.data)
     }
     const userActive = (data) => {
-        const d = data.find(f => f.active)
-        setAccount(d);
-        if(d){
-            getAllBooksByUser(d._id)
-        }
-        // getAllBooksByUser(d._id)
+        const d = data.filter(f => f.active);
+        // const d = data.map((f)=>{
+        //     if(f.active){
+        //         return f
+        //     }else{
+        //         return null
+        //     } 
+        //     // return f
+        // })
+        // const d = data.find(f => f.active)
+        setAccountExtra(d);
+        // if(d){
+        //     getAllBooksByUser(d._id)
+        // }
+        
     }
     const getAllBooks = async () => {
         const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllBooks`);
@@ -87,12 +98,34 @@ const Main = ({ }) => {
         })
         setAllBooks(copyItems)
     }
-
+    ///////////////////////////
+    const checkValid = (e) => {
+        // console.log(accountExtra);
+        if((e.target.value).length === 24){
+            if(accountExtra.length !== 0){
+                const dd = accountExtra.filter(f => f._id===(e.target.value));
+                console.log(dd[0]);
+                setAccount(dd[0])
+                // accountExtra.map((bon)=>{
+                //     console.log(bon._id)
+                //  })
+            }
+        }
+        // setXx(e.target.value)
+    //    console.log(e.target.value); 
+    }
+    const checkValidClick = () => {
+        // accountExtra.length !== 0&&xx ? (accountExtra.map((bon)=>{
+        //    return bon._id===xx
+        // })) : ''
+    }
+    ///////////////////////////////
     return (
         // <div className="ui container">
 
         <div className="ui segment">
-        
+            
+        {/* {console.log(userLogin)} */}
             {/* main menu */}
             <Header />
 
@@ -152,6 +185,10 @@ const Main = ({ }) => {
                         (account && allBooks) ? <AllBooksPage account={account} allBooks={allBooks}/> : 'You are not login!'
                     }
                 </Route>
+                <div>
+                    <input type="text" name="" id="" onChange={checkValid}/>
+                    <input type="button" name="" value="enter" onClick={checkValidClick}/>
+                </div>
             </div>
         </div>
         //</div> 

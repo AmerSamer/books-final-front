@@ -1,4 +1,5 @@
 // import "./App.css";
+// import { AccountBox } from "./components/accountBox/index";
 import Main from "./components/pages/Main";
 // import styled from "styled-components";
 // import { AccountBox } from "./components/accountBox";
@@ -15,6 +16,7 @@ import Main from "./components/pages/Main";
 function App() {
   return (
     <Main/>
+    // <AccountBox/>
     // <AppContainer>
     //   <AccountBox />
     // </AppContainer>
