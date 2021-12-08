@@ -185,10 +185,13 @@ const Main = ({}) => {
                         (account && allBooks) ? <AllBooksPage account={account} allBooks={allBooks}/> : 'You are not login!'
                     }
                 </Route>
-                <div>
+                {!account ? (
+                    <div>
                     <input type="text" name="" id="" onChange={checkValid}/>
                     <input type="button" name="" value="enter" onClick={checkValidClick}/>
                 </div>
+                ) : ''}
+                
             </div>
         </div>
         //</div> 
