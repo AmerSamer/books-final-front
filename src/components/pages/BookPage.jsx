@@ -1,14 +1,14 @@
 import React from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 var Filter = require('bad-words'),
     filterBadWords = new Filter();
 
 const BookPage = ({ account, selectedBook, comments, rating }) => {
     const [selectedBookComm, setSelectedBookComm] = React.useState(null);
-
     const [allUserCarts, setAllUserCarts] = React.useState(null);
     const [msgFavoritesCart, setMsgFavoritesCart] = React.useState(null);
-    // const [fav, setFav] = React.useState(null);
     const [cart, setCart] = React.useState(null);
     const [changeComment, setChangeComment] = React.useState({
         comments: comments,
@@ -17,6 +17,10 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
         rating: rating,
     });
     const [newRating, setNewRating] = React.useState(null);
+    const [messageToUser, setMessageToUser] = React.useState(false);
+    const [titleToUser, setTitleToUser] = React.useState(null);
+    const [contentToUser, setContentToUser] = React.useState(null);
+    const [msg, setMsg] = React.useState(null);
 
     React.useEffect(() => {
         getCartsUser();
@@ -74,12 +78,11 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
             setMsgFavoritesCart('This Book Already in your Cart')
         }
     }
-
     const changeCommentHandler = (e) => {
         if (e.target.value) {
             setChangeComment({
                 ...changeComment,
-                [e.target.name]: "User Name: " +account.name+ ", Date: " +new Date().getDate() +"/"+ (new Date().getMonth()+1)+"/"+new Date().getFullYear()+ ", Comment: " +(filterBadWords.clean((e.target.value))) // filtering Bad Words from user input
+                [e.target.name]: "User Name: " + account.name + ", Date: " + new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear() + ", Comment: " + (filterBadWords.clean((e.target.value))) // filtering Bad Words from user input
             })
         }
 
@@ -132,6 +135,54 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
             setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
         }
     }
+    const btnMessageToUserHandler = () => {
+        if (messageToUser) {
+            setMessageToUser(false)
+        } else {
+            setMessageToUser(true)
+        }
+    }
+    const titleHandler = (e) => {
+        setTitleToUser(e.target.value)
+    }
+    const contentHandler = (e) => {
+        setContentToUser(e.target.value)
+    }
+    const sendMessageToUserHandler = () => {
+        if (titleToUser && contentToUser) {
+            console.log("titleToUser", titleToUser);
+            console.log("contextToUser", contentToUser);
+            const addNewNotification = {
+                bookId: selectedBook._id,
+                usersender: account._id,
+                userreceiver: selectedBook.user,
+                title: titleToUser,
+                content: contentToUser,
+                // reply: reply,
+                // isDone: isDone
+            }
+            axios.post(`https://books-store-back.herokuapp.com/books/store/newNotifications`, addNewNotification)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setTitleToUser(null)
+                        setContentToUser(null)
+                        // setMsg(`Your Message was sended successfully`)
+                        notify()
+                        // alert(`Book ${addBook.name}, was added successfully`)
+                        // window.location.reload(false);
+                    }
+                    else {
+                        alert("Something went wrong")
+                    }
+                }).catch((err) => {
+                    // setMsg('ERROR')
+                    console.log(err);
+                })
+        } else {
+            console.log("msg: please fill All Inputs");
+        }
+    }
+    const notify = () => toast("Your Message was sended successfully");
     return (
         <div className="ui container">
             <div className="users-details">
@@ -144,13 +195,13 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                             <div className="item">
                                 <div className="image">
                                     <div style={{
-                                                backgroundImage: `url(${selectedBook.img})`,
-                                                height: '100%',
-                                                width: '100%',
-                                                backgroundPosition: 'center',
-                                                backgroundSize: 'cover',
-                                                backgroundRepeat: 'no-repeat'
-                                            }}></div>
+                                        backgroundImage: `url(${selectedBook.img})`,
+                                        height: '100%',
+                                        width: '100%',
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}></div>
                                 </div>
                                 <div className="content">
                                     <p className="header">Name: {selectedBook.name}</p>
@@ -168,7 +219,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                                     </div>
                                     <div className="extra">
                                         {/* <p>rating: {selectedBook.rating}</p> */}
-                                        <div>rating: {newRating ? newRating : selectedBook.rating }</div>
+                                        <div>rating: {newRating ? newRating : selectedBook.rating}</div>
 
                                         <div>comments: {selectedBookComm ? <div>{selectedBookComm.map((com) => {
                                             return <p key={com}>{com}</p>
@@ -181,22 +232,39 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                             </div>
                         </div>
                         <div>
-                            {/* Id: {selectedBook._id} <hr /> Upload Date: {selectedBook.bookUploadDate} */}
-                            {/* id: {i.id} name: {i.name} userName: {i.userName} country: {i.country} total Amount: {total[index]} */}
+                            <button type="button" class="btn btn-primary" onClick={btnMessageToUserHandler}>Contact User</button>
+                            <hr />
+                            {messageToUser ? (
+                                <div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Title:</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title..." onChange={titleHandler} />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Content:</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={contentHandler}></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="button" class="btn btn-success" onClick={sendMessageToUserHandler}>Send</button>
+                                    </div>
+                                    <ToastContainer />
+                                </div>
+                            ) : ''}
+
                         </div>
                         <hr />
-                        
+
                         <div>
                             <select name="rating" id="rating" onChange={selectRatingHandler}>
-                                <option name={'rating'} value="1">1</option> 
+                                <option name={'rating'} value="1">1</option>
                                 <option name={'rating'} value="2">2</option>
                                 <option name={'rating'} value="3">3</option>
                                 <option name={'rating'} value="4">4</option>
                                 <option name={'rating'} value="5">5</option>
                             </select>
-                            <input type="button" value='rate' onClick={addSelectRatingHandler}/> 
+                            <input type="button" value='rate' onClick={addSelectRatingHandler} />
                         </div>
-                        
+
                         <hr />
                         <div>
                             {/* <input type="text" name={'comments'} placeholder={account.name} onChange={changeCommentHandler} /> */}

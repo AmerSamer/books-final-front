@@ -77,11 +77,10 @@ const Cart = ({ account }) => {
                                                         {/* <p>purchase: {i.purchase}</p> */}
                                                     </div>
                                                     <div className="extra">
-                                                        <p>rating: {i.book.rating}</p>
+                                                        {/* <p>rating: {i.book.rating}</p>
                                                         <div>comments: {i.book.comments.map((com) => {
                                                                 return <p key={com}>{com}</p>
-                                                            })}</div>
-                                                        {/* <p>comments: {i.book.comments}</p> */}
+                                                            })}</div> */}
                                                     </div>
                                                 </div>
                                             </div>
