@@ -1,9 +1,36 @@
 import React from "react";
 import BookPage from "./BookPage";
-
-const AllBooksPage = ({ account, allBooks }) => {
+let allBooksArrayHelper = []
+// import {useParams} from "react-router-dom"
+const Search = ({ account, allBooks }) => {
+    const [searchTerm, setSearchTerm] = React.useState("");
+    const [searchResults, setSearchResults] = React.useState([]);
+    const [books, setBooks] = React.useState([]);
+    // const [bookSearchSelected, setBookSearchSelected] = React.useState(null);
     const [selectedBookk, setSelectedBookk] = React.useState(null);
 
+
+    React.useEffect(() => {
+        allBooksArr()
+    }, []);
+
+    const allBooksArr = () => {
+        allBooksArrayHelper = []
+        allBooks.map((p) => {
+            return allBooksArrayHelper.push(p)
+        })
+        setBooks(allBooksArrayHelper);
+    };
+
+    const handleChange = event => {
+        setSearchTerm(event.target.value);
+    };
+    const booksFilterhandleClick = () => {
+        const results = books.filter(b =>
+            b.name.toLowerCase().includes(searchTerm) || b.author.toLowerCase().includes(searchTerm)
+        );
+        setSearchResults(results);
+    };
     const x = (b) => {
         if (selectedBookk) {
             if (selectedBookk._id !== b._id) {
@@ -15,17 +42,36 @@ const AllBooksPage = ({ account, allBooks }) => {
             setSelectedBookk(b)
         }
     }
+    // const searchItemSelected = (id) => {
+    //     setBookSearchSelected(id)
+    // };
+
     return (
         <>
-            <p>hello {account.name}</p>
-
-            {allBooks ? allBooks.map((allB, index) => {
+            <div>
+                Hello, {account.name}
+                <hr />
+            </div>
+            <div style={{ textAlign: 'center', padding: '1em' }}>
+                <input type="search" name="search" id="search" placeholder=" Search" value={searchTerm} onChange={handleChange} />
+                <input type="button" className="searchIcon" value="🔍" onClick={booksFilterhandleClick} />
+            </div>
+            {/* ///////////// */}
+            <div>
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control" />
+                        <label class="form-label" for="form1">Search</label>
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            {/* ////////////////// */}
+            {searchResults ? searchResults.map((allB, index) => {
                 return (
-
-
                     <div key={index} >
-                        
-
                         <div className="ui segment" onClick={() => x(allB)}>
                             <div className="ui divided items">
                                 <div className="item" >
@@ -65,10 +111,10 @@ const AllBooksPage = ({ account, allBooks }) => {
                             </div>
                         </div>
 
-
                         <div>
                             {((selectedBookk) && (selectedBookk._id === allB._id)) ? <BookPage account={account} selectedBook={selectedBookk} /> : ''}
                         </div>
+
 
                     </div>
 
@@ -78,4 +124,4 @@ const AllBooksPage = ({ account, allBooks }) => {
         </>
     )
 }
-export default AllBooksPage
+export default Search

@@ -143,13 +143,14 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                         <div className="ui divided items">
                             <div className="item">
                                 <div className="image">
-                                    {/* <div style={{
-                                                backgroundImage: `url(${i.avatar})`,
-                                                height: '150px',
-                                                width: '150px',
+                                    <div style={{
+                                                backgroundImage: `url(${selectedBook.img})`,
+                                                height: '100%',
+                                                width: '100%',
+                                                backgroundPosition: 'center',
                                                 backgroundSize: 'cover',
                                                 backgroundRepeat: 'no-repeat'
-                                            }}></div> */}
+                                            }}></div>
                                 </div>
                                 <div className="content">
                                     <p className="header">Name: {selectedBook.name}</p>

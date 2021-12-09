@@ -111,13 +111,13 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                     <div className="ui divided items">
                                         <div className="item">
                                             <div className="image">
-                                                {/* <div style={{
-                                                    backgroundImage: `url(${i.avatar})`,
+                                                <div style={{
+                                                    backgroundImage: `url(${i.img})`,
                                                     height: '150px',
                                                     width: '150px',
                                                     backgroundSize: 'cover',
                                                     backgroundRepeat: 'no-repeat'
-                                                }}></div> */}
+                                                }}></div>
                                             </div>
                                             <div className="content">
                                                 <p className="header">Name: {i.name}</p>

@@ -11,6 +11,9 @@ const Header = () => {
                 <Link className="item" href="/">
                     Home
                 </Link>
+                <Link className="item" href="/search">
+                     Search Book
+                </Link>
                 <Link className="item" href="/specialBooks">
                     Our Special Books
                 </Link>

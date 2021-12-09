@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios"
+// import FileUpload from "../uploadImage/FileUpload";
 
-const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishing, amount, language, category, desc, price, user }) => {
+const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publishing, amount, language, category, desc, price, user }) => {
     // const [allBooks, setAllBooks] = React.useState(null);
     // const [refresh, setRefresh] = React.useState(null);
     const [msg, setMsg] = React.useState('')
     const [addBook, setAddBook] = React.useState({
+        img:img,
         name: name,
         author: author,
         publishing: publishing,
@@ -44,6 +46,7 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
                             if (!findBookNameDup) {
                                 const idFind = find._id;
                                 const bookNewAdd = {
+                                    img: addBook.img,
                                     name: addBook.name,
                                     author: addBook.author,
                                     publishing: addBook.publishing,
@@ -90,10 +93,13 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
     return (
         <>
             <div>
+                {console.log(addBook.img)}
                 <div style={{ textAlign: "center" }}>
                     Add New Book
                 </div>
                 <div style={{ textAlign: "center" }}>
+                
+                    Image:<input type="file" name='img' id='img' onChange={addBookHandler}/> <br />
                     Book Name: <input type="text" name={'name'} onChange={addBookHandler} /> <br />
                     author: <input type="text" name={'author'} onChange={addBookHandler} /><br />
                     publishing Date: <input type="number" name={'publishing'} onChange={addBookHandlerInt} /><br />  {/*  number  */}

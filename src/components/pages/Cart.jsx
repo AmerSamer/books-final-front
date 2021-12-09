@@ -53,13 +53,14 @@ const Cart = ({ account }) => {
                                         <div className="ui divided items">
                                             <div className="item">
                                                 <div className="image">
-                                                    {/* <div style={{
-                                                    backgroundImage: `url(${i.avatar})`,
-                                                    height: '150px',
-                                                    width: '150px',
+                                                    <div style={{
+                                                    backgroundImage: `url(${i.book.img})`,
+                                                    height: '100%',
+                                                    width: '100%',
+                                                    backgroundPosition: 'center',
                                                     backgroundSize: 'cover',
                                                     backgroundRepeat: 'no-repeat'
-                                                }}></div> */}
+                                                }}></div>
                                                 </div>
                                                 <div className="content">
                                                     <p className="header">Name: {i.book.name}</p>
@@ -77,7 +78,10 @@ const Cart = ({ account }) => {
                                                     </div>
                                                     <div className="extra">
                                                         <p>rating: {i.book.rating}</p>
-                                                        <p>comments: {i.book.comments}</p>
+                                                        <div>comments: {i.book.comments.map((com) => {
+                                                                return <p key={com}>{com}</p>
+                                                            })}</div>
+                                                        {/* <p>comments: {i.book.comments}</p> */}
                                                     </div>
                                                 </div>
                                             </div>

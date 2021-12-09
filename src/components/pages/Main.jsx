@@ -1,11 +1,5 @@
 import React from 'react';
 import Home from './Home';
-
-// import AddNewAcount from './AddNewAcount';
-// import AccountsDepositOrWithdrawal from './AccountsDepositOrWithdrawal';
-// import Credit from './Credit';
-// import Transfer from './Transfer';
-// import GetAccountById from './GetAccountById';
 import Route from './Route';
 import Header from './Header';
 import axios from 'axios';
@@ -16,12 +10,18 @@ import { AccountBox } from '../accountBox';
 import Logout from './Logout';
 import AddBook from './AddBook';
 import BooksManagement from './BooksManagement';
-import BookPage from './BookPage';
+// import BookPage from './BookPage';
 import Chart from './Chart';
 import Cart from './Cart';
 import Favorites from './Favorites';
 import SpecialBooks from './SpecialBooks';
 import AllBooksPage from './AllBooksPage';
+import Search from './Search';
+// import {
+//     BrowserRouter as Router,
+//     Routes,
+//     Route
+// } from 'react-router-dom';
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -30,17 +30,17 @@ const AppContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-const Main = ({}) => {
+// let arr = []
+const Main = () => {
     const [accounts, setAccounts] = React.useState(null);
     const [account, setAccount] = React.useState(null);
     const [accountExtra, setAccountExtra] = React.useState(null);
-    const [xx, setXx] = React.useState(null);
+    // const [xx, setXx] = React.useState(null);
     const [allBooks, setAllBooks] = React.useState(null);
     const [allBooksByUser, setAllBooksByUser] = React.useState(null);
     const [allBooksByUserPurchase, setAllBooksByUserPurchase] = React.useState(null);
 
-    
+
     // const [selectedBook, setSelectedBook] = React.useState(null);
 
 
@@ -57,6 +57,7 @@ const Main = ({}) => {
     }
     const userActive = (data) => {
         const d = data.filter(f => f.active);
+        setAccountExtra(d);
         // const d = data.map((f)=>{
         //     if(f.active){
         //         return f
@@ -66,11 +67,11 @@ const Main = ({}) => {
         //     // return f
         // })
         // const d = data.find(f => f.active)
-        setAccountExtra(d);
+
         // if(d){
         //     getAllBooksByUser(d._id)
         // }
-        
+
     }
     const getAllBooks = async () => {
         const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllBooks`);
@@ -101,18 +102,25 @@ const Main = ({}) => {
     ///////////////////////////
     const checkValid = (e) => {
         // console.log(accountExtra);
-        if((e.target.value).length === 24){
-            if(accountExtra.length !== 0){
-                const dd = accountExtra.filter(f => f._id===(e.target.value));
-                console.log(dd[0]);
+        if ((e.target.value).length === 24) {
+            if (accountExtra.length !== 0) {
+                const dd = accountExtra.filter(f => f._id === (e.target.value));
+                // console.log(dd[0]);
                 setAccount(dd[0])
+                // console.log(dd);
+                // arr.push(dd[0])
+                if (dd.length !== 0) {
+                    getAllBooksByUser(dd[0]._id)
+                } else {
+                    console.log("Errorrrrrrrrrrrrrrrrrrr");
+                }
                 // accountExtra.map((bon)=>{
                 //     console.log(bon._id)
                 //  })
             }
         }
         // setXx(e.target.value)
-    //    console.log(e.target.value); 
+        //    console.log(e.target.value); 
     }
     const checkValidClick = () => {
         // accountExtra.length !== 0&&xx ? (accountExtra.map((bon)=>{
@@ -122,79 +130,84 @@ const Main = ({}) => {
     ///////////////////////////////
     return (
         // <div className="ui container">
-
-        <div className="ui segment">
-            
-        {/* {console.log(userLogin)} */}
-            {/* main menu */}
-            <Header />
-
+        // <Router>
             <div className="ui segment">
+                {/* main menu */}
+                <Header />
+                <div className="ui segment">
+                    {/* <Routes> */}
+                        <Route path="/">
+                            {
+                                (account && allBooks) ? <Home account={account} accounts={accounts} allBooks={allBooks} /> : 'You Should to Log In To see Content'
+                            }
+                        </Route>
+                        <Route path="/login">
+                            {
+                                <AppContainer>
+                                    <AccountBox />
+                                </AppContainer>
+                            }
+                        </Route>
+                        <Route path="/logout">
+                            {
+                                account ? <Logout account={account} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/newbook">
+                            {
+                                (account && allBooks) ? <AddBook account={account} accounts={accounts} allBooks={allBooks} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/booksmanagement">
+                            {
+                                // working on
+                                (account) ? <BooksManagement account={account} allBooks={removeBookHandler} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/chart">
+                            {
+                                // working on
+                                (account && allBooksByUser && allBooksByUserPurchase) ? <Chart account={account} allBooksByUser={allBooksByUser} allBooksByUserPurchase={allBooksByUserPurchase} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/cart">
+                            {
+                                (account) ? <Cart account={account} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/favorites">
+                            {
+                                (account) ? <Favorites account={account} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/specialBooks">
+                            {
+                                (account && allBooks) ? <SpecialBooks account={account} allBooks={allBooks} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/allBooks">
+                            {
+                                (account && allBooks) ? <AllBooksPage account={account} allBooks={allBooks} /> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/search">
+                            {
+                                (account && allBooks) ? <Search account={account} allBooks={allBooks}/> : 'You are not login!'
+                            }
+                        </Route>
+                    {/* </Routes> */}
+                    {!account ? (
+                        <div>
+                            <input type="text" id="" onChange={checkValid} />
+                            <input type="button" name="" value="enter" onClick={checkValidClick} />
+                        </div>
+                    ) : ''}
 
-                <Route path="/">
-                    {
-                        (account && allBooks) ? <Home account={account} accounts={accounts} allBooks={allBooks} /> : 'You Should to Log In To see Content'
-                    }
-                </Route>
-                <Route path="/login">
-                    {
-                        <AppContainer>
-                            <AccountBox />
-                        </AppContainer>
-                    }
-                </Route>
-                <Route path="/logout">
-                    {
-                        account ? <Logout account={account} /> : 'You are not login!'
-                    }
-                </Route>
-                <Route path="/newbook">
-                    {
-                        (account && allBooks) ? <AddBook account={account} accounts={accounts} allBooks={allBooks} /> : 'You are not login!'
-                    }
-                </Route>
-                <Route path="/booksmanagement">
-                    {
-                        // working on
-                        (account) ? <BooksManagement account={account} allBooks={removeBookHandler} /> : 'You are not login!'
-                    }
-                </Route>
-                <Route path="/chart">
-                    {
-                        // working on
-                        (account && allBooksByUser && allBooksByUserPurchase) ? <Chart account={account} allBooksByUser={allBooksByUser} allBooksByUserPurchase={allBooksByUserPurchase}/> : 'You are not login!'
-                    }
-                </Route>
-                <Route path="/cart">
-                    {
-                        (account) ? <Cart account={account} /> : 'You are not login!'
-                    }
-                </Route>
-                <Route path="/favorites">
-                    {
-                        (account) ? <Favorites account={account} /> : 'You are not login!'
-                    }
-                </Route>
-                <Route path="/specialBooks">
-                    {
-                        (account && allBooks) ? <SpecialBooks account={account} allBooks={allBooks}/> : 'You are not login!'
-                    }
-                </Route>
-                <Route path="/allBooks">
-                    {
-                        (account && allBooks) ? <AllBooksPage account={account} allBooks={allBooks}/> : 'You are not login!'
-                    }
-                </Route>
-                {!account ? (
-                    <div>
-                    <input type="text" name="" id="" onChange={checkValid}/>
-                    <input type="button" name="" value="enter" onClick={checkValidClick}/>
                 </div>
-                ) : ''}
-                
-            </div>
-        </div>
+            </div >
+        // </Router>
         //</div> 
+
     )
 }
 
