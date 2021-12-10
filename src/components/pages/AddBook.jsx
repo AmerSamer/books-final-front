@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import FileUpload from "../uploadImage/FileUpload";
 
 const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publishing, amount, language, category, desc, price, user }) => {
@@ -61,8 +63,10 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
                                     .then((res) => {
                                         if (res.status === 200) {
                                             setMsg(`Book ${addBook.name}, was added successfully`)
-                                            alert(`Book ${addBook.name}, was added successfully`)
-                                            window.location.reload(false);
+                                            addItem()
+                                            // alert(`Book ${addBook.name}, was added successfully`)
+                                            // window.location.reload(false);
+                                            notify()
                                         }
                                         else {
                                             alert("Something went wrong")
@@ -90,6 +94,8 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
         }
     }
 
+    const notify = () => toast(`Book ${addBook.name}, was added successfully`);
+
     return (
         <>
             <div>
@@ -112,6 +118,7 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
 
                     <input type="button" value='Add Book' onClick={addBookSubmitHandler} /><br />
                     {msg ? msg : ''}
+                    <ToastContainer />
                 </div>
             </div>
         </>

@@ -12,13 +12,13 @@ const Header = () => {
                     Home
                 </Link>
                 <Link className="item" href="/search">
-                     Search Book
+                    Search Book
                 </Link>
                 <Link className="item" href="/specialBooks">
                     Our Special Books
                 </Link>
                 <Link className="item" href="/allBooks">
-                     All Books
+                    All Books
                 </Link>
                 {/* <Link className="item" href="/getAccountById">
                  Account By Id
@@ -37,12 +37,14 @@ const Header = () => {
                 </Link> */}
 
                 <div className="right menu">
+
                     <Link className="item" href="/cart">
                         🛒
                     </Link>
                     <Link className="item" href="/favorites">
                         ✰
                     </Link>
+
                     <Link className="item" href="/login">
                         Login
                     </Link>
@@ -61,6 +63,9 @@ const Header = () => {
                 </Link>
                 <Link className="item" href="/chart">
                     chart
+                </Link>
+                <Link className="item" href="/notification">
+                    Notification
                 </Link>
                 {/* <p style={{ textAlign: 'center' }}>Welcome to Amer's Bank</p> */}
             </div>

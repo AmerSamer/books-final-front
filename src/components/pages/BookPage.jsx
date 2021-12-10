@@ -158,6 +158,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                 userreceiver: selectedBook.user,
                 title: titleToUser,
                 content: contentToUser,
+                timePublished: new Date()
                 // reply: reply,
                 // isDone: isDone
             }

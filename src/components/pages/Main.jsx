@@ -17,6 +17,7 @@ import Favorites from './Favorites';
 import SpecialBooks from './SpecialBooks';
 import AllBooksPage from './AllBooksPage';
 import Search from './Search';
+import User from './User';
 // import {
 //     BrowserRouter as Router,
 //     Routes,
@@ -39,7 +40,7 @@ const Main = () => {
     const [allBooks, setAllBooks] = React.useState(null);
     const [allBooksByUser, setAllBooksByUser] = React.useState(null);
     const [allBooksByUserPurchase, setAllBooksByUserPurchase] = React.useState(null);
-
+    const [addbBooktrue, setAddbBooktrue] = React.useState(false);
 
     // const [selectedBook, setSelectedBook] = React.useState(null);
 
@@ -47,35 +48,25 @@ const Main = () => {
     React.useEffect(() => {
         getDataAccounts();
         getAllBooks();
-        // getAllBooksByUser();
-    }, [])
+        
+    }, [addbBooktrue])
 
     const getDataAccounts = async () => {
         const response = await axios.get(`https://books-store-back.herokuapp.com/books/store`);
         setAccounts(response.data);
         userActive(response.data)
     }
+
     const userActive = (data) => {
         const d = data.filter(f => f.active);
         setAccountExtra(d);
-        // const d = data.map((f)=>{
-        //     if(f.active){
-        //         return f
-        //     }else{
-        //         return null
-        //     } 
-        //     // return f
-        // })
-        // const d = data.find(f => f.active)
-
-        // if(d){
-        //     getAllBooksByUser(d._id)
-        // }
-
     }
     const getAllBooks = async () => {
         const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllBooks`);
         setAllBooks(response.data);
+    }
+    const addItem = () => {
+        setAddbBooktrue(!addbBooktrue)
     }
     const getAllBooksByUser = async (id) => {
         const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllBooksUser/${id}`);
@@ -155,7 +146,7 @@ const Main = () => {
                         </Route>
                         <Route path="/newbook">
                             {
-                                (account && allBooks) ? <AddBook account={account} accounts={accounts} allBooks={allBooks} /> : 'You are not login!'
+                                (account && allBooks ) ? <AddBook account={account} accounts={accounts} allBooks={allBooks} addItem={addItem}/> : 'You are not login!'
                             }
                         </Route>
                         <Route path="/booksmanagement">
@@ -193,6 +184,11 @@ const Main = () => {
                         <Route path="/search">
                             {
                                 (account && allBooks) ? <Search account={account} allBooks={allBooks}/> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/notification">
+                            {
+                                (account && allBooks ) ? <User account={account} allBooks={allBooks}/> : 'You are not login!'
                             }
                         </Route>
                     {/* </Routes> */}
