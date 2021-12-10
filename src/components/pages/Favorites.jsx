@@ -5,25 +5,31 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Favorites = ({ account }) => {
     const [allUserFavorites, setAllUserFavorites] = React.useState(null);
-    // const [count, setCount] = React.useState(0);
+    const [allUserCarts, setAllUserCarts] = React.useState(null);
     const [refresh, setRefresh] = React.useState(null);
     const [deleteMsg, setDeleteMsg] = React.useState(null);
 
     React.useEffect(() => {
         getFavoritesUser();
+        getCartUser();
     }, [refresh])
     const getFavoritesUser = async () => {
         const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllFavoritesByUser/${account._id}`);
         setAllUserFavorites(response.data);
     }
-
+    const getCartUser = async () => {
+        
+        const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllcartsByUser/${account._id}`);
+        setAllUserCarts(response.data);
+        console.log("response.data",response.data);
+    }
     const removeBookFavoritesHandler = (id, name) => {
         axios.put(`https://books-store-back.herokuapp.com/books/store/updateUserFavorites/${id}`)
             .then((res) => {
                 if (res.status === 200) {
                     // setDeleteMsg(`Deleted ${name}, was made successfully`)
                     notify(`Deleted ${name} from favorites, was made successfully`)
-                    setRefresh(true)
+                    setRefresh(!refresh)
                 }
                 else {
                     // alert("Something went wrong")
@@ -33,6 +39,35 @@ const Favorites = ({ account }) => {
                 notify("ERROR")
                 // setDeleteMsg('ERROR')
             })
+    }
+    const addToCartHandler = (book) => {
+        console.log("id",book);
+        const found = allUserCarts.find((f) => ((f.user === account._id) && (f.book._id === book._id)))
+        if (!found) {
+            const newCart = {
+                user: account._id,
+                book: book._id,
+                cart: true
+            }
+            axios.post(`https://books-store-back.herokuapp.com/books/store/newCarts`, newCart)
+                .then((res) => {
+                    if (res.status === 200) {
+                        notify("added To cart Successfully")
+                        // setMsgFavoritesCart(`added To cart Successfully`);
+                        setRefresh(!refresh)
+                    }
+                    else {
+                        notify("Something went wrong")
+                        // alert("Something went wrong")
+                    }
+                }).catch((err) => {
+                    notify("ERROR")
+                    // setMsgFavoritesCart('ERR')
+                })
+        } else {
+            notify("This Book Already in your Cart")
+            // setMsgFavoritesCart('This Book Already in your Cart')
+        }
     }
     const notify = (ms) => toast(ms);
     return (
@@ -46,8 +81,6 @@ const Favorites = ({ account }) => {
                     {
                         allUserFavorites ? allUserFavorites.map((i, index) => {
                             if (i.favorites) {
-
-
                                 return (
                                     <div key={index} >
                                         <div className="ui segment">
@@ -95,7 +128,9 @@ const Favorites = ({ account }) => {
                                             {/* {index<users.length-1 ? <hr/>:""} */}
                                             <div className="buttonEditRemove">
                                                 {/* <input type="button" value="-" onClick={()=>minusCount(i._id)}/><input type="number" value={count}/><input type="button"  value="+" onClick={plusCount} /> */}
-                                                <input type="button" className="removeBook" value="Remove" onClick={() => removeBookFavoritesHandler(i._id, i.book.name)} />
+                                                {/* <input type="button" className="removeBook" value="Remove" onClick={() => removeBookFavoritesHandler(i._id, i.book.name)} /> */}
+                                                <button type="button" class="btn btn-danger" onClick={() => removeBookFavoritesHandler(i._id, i.book.name)}>Remove</button>
+                                                <button type="button" class="btn btn-primary" onClick={() => addToCartHandler(i.book)}>Add To Cart</button>
                                                 <ToastContainer />
                                                 {/* <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} /> */}
                                                 {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}

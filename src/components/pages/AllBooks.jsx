@@ -3,7 +3,7 @@ import './style.css';
 import BookPage from "./BookPage";
 import Footer from "./Footer";
 import Link from "./Link";
-let higherPurchaseArrayHelper = [];
+// let higherPurchaseArrayHelper = [];
 let xy = [];
 let xyz = [];
 const shuffle = (a) => {
