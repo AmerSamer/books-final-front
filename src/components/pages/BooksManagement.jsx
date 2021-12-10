@@ -2,7 +2,8 @@ import React from 'react';
 import Spinner from './Spinner'
 import axios from 'axios';
 import './style.css';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function BooksManagement({ allBooks, account, name, author, publishing, language, category, desc, price, amount }) {
     const [allAccountBooks, setAllAccountBooks] = React.useState(null);
@@ -22,6 +23,7 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
     });
     const [msgUpdated, setMsgUpdated] = React.useState(null);
     const [refresh, setRefresh] = React.useState(null);
+
     React.useEffect(() => {
         getBooksAccount();
     }, [refresh])
@@ -40,18 +42,21 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
         axios.delete(`https://books-store-back.herokuapp.com/books/store/deleteBookByUser/${id}`)
             .then((res) => {
                 if (res.status === 200) {
-                    setMsg(`Deleted ${name}, was made successfully`)
-                    setRefresh(true)
+                    // setMsg(`Deleted ${name}, was made successfully`)
+                    setRefresh(!refresh)
                     allBooks(id)
+                    notify('Deleted successfully')
                     // alert(`Deleted ${name}, was made successfully`)
                     // window.location.reload(false);
                     // addItem(addAccount)
                 }
                 else {
-                    alert("Something went wrong")
+                    notify('Something went wrong')
+                    // alert("Something went wrong")
                 }
             }).catch((err) => {
-                setMsg('ERROR')
+                notify('ERROR')
+                // setMsg('ERROR')
             })
     }
     const updateInputsHandler = (e) => {
@@ -69,7 +74,8 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
     const addUpdatedInputsHandler = () => {
         if (!itemsOnChange.name && !itemsOnChange.author && !itemsOnChange.publishing && !itemsOnChange.language
             && !itemsOnChange.category && !itemsOnChange.desc && !itemsOnChange.price && !itemsOnChange.amount) {
-            setMsgUpdated('You should change at least one inputs')
+            // setMsgUpdated('You should change at least one inputs')
+            notify('You should change at least one inputs')
         } else {
             if ((!itemsOnChange.price) || (itemsOnChange.price && itemsOnChange.price > 0)) {
                 if ((!itemsOnChange.amount) || (itemsOnChange.amount && itemsOnChange.amount > 0)) {
@@ -77,28 +83,35 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                         axios.put(`https://books-store-back.herokuapp.com/books/store/updateBookByUser/${idBookUpdated}`, itemsOnChange)
                             .then((res) => {
                                 if (res.status === 200) {
-                                    setMsgUpdated(`Changed was added successfully`)
-                                    alert(`Changed was added successfully`)
-                                    window.location.reload(false);
+                                    // setMsgUpdated(`Changed was added successfully`)
+                                    setRefresh(!refresh)
+                                    notify('Changed was added successfully')
+                                    // alert(`Changed was added successfully`)
+                                    // window.location.reload(false);
                                     // addItem(creditAccount)
                                 }
                                 else {
-                                    alert("Something went wrong")
+                                    notify('Something went wrong')
+                                    // alert("Something went wrong")
                                 }
                             }).catch((err) => {
                                 setMsg('ERROR')
                             })
                     } else {
-                        setMsgUpdated('You should put correct year [1500-2021]')
+                        notify('You should put correct year [1500-2021]')
+                        // setMsgUpdated('You should put correct year [1500-2021]')
                     }
                 } else {
-                    setMsgUpdated('You should put an possitive amount')
+                    notify('You should put an possitive amount')
+                    // setMsgUpdated('You should put an possitive amount')
                 }
             } else {
-                setMsgUpdated('You should put a possitive price')
+                notify('You should put a possitive price')
+                // setMsgUpdated('You should put a possitive price')
             }
         }
     }
+    const notify = (ms) => toast(ms);
     return (
         <div className="ui container">
             {msg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{msg}</div> : ''}
@@ -149,8 +162,11 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                     <hr />
                                     {/* {index<users.length-1 ? <hr/>:""} */}
                                     <div className="buttonEditRemove">
-                                        <input type="button" className="removeBook" value="Remove" onClick={() => removeBookHandler(i._id, i.name)} />
-                                        <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} />
+                                    <button type="button" class="btn btn-danger" onClick={() => removeBookHandler(i._id, i.name)}>Remove</button>
+                                    <button type="button" class="btn btn-secondary" onClick={() => updateBookHandler(i._id, i.name)}>Edit</button>
+                                    <ToastContainer />
+                                        {/* <input type="button" className="removeBook" value="Remove" onClick={() => removeBookHandler(i._id, i.name)} /> */}
+                                        {/* <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} /> */}
                                         {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}
                                     </div>
                                     {((isUpdateclicked) && (bookNameUpdated === i.name)) ? (
@@ -167,6 +183,7 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                                 amount:<input type="number" name={'amount'} onChange={updateInputsIntHandler} />
                                                 <br />
                                                 <input type="button" value="Update" onClick={addUpdatedInputsHandler} />
+                                                <ToastContainer />
                                             </div>
                                             <div>
                                                 {msgUpdated ? msgUpdated : ''}
