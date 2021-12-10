@@ -27,7 +27,7 @@ const Search = ({ account, allBooks }) => {
     };
     const booksFilterhandleClick = () => {
         const results = books.filter(b =>
-            b.name.toLowerCase().includes(searchTerm) || b.author.toLowerCase().includes(searchTerm)
+            b.name.toLowerCase().includes(searchTerm.toLowerCase()) || b.author.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setSearchResults(results);
     };

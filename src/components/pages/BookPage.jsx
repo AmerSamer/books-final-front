@@ -40,18 +40,22 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                 if (res.status === 200) {
                     console.log(res.data.favorites);
                     if (res.data.favorites) {
-                        setMsgFavoritesCart(`added To favorites Successfully`);
+                        notify("added To favorites Successfully")
+                        // setMsgFavoritesCart(`added To favorites Successfully`);
                         // setFav(!fav);
                     } else {
-                        setMsgFavoritesCart(`Removed from favorites Successfully`);
+                        notify("Removed from favorites Successfully")
+                        // setMsgFavoritesCart(`Removed from favorites Successfully`);
                         // setFav(!fav);
                     }
                 }
                 else {
-                    alert("Something went wrong")
+                    notify("Something went wrong")
+                    // alert("Something went wrong")
                 }
             }).catch((err) => {
-                setMsgFavoritesCart('ERROR')
+                notify("ERROR")
+                // setMsgFavoritesCart('ERROR')
             })
     }
     const addToCartHandler = () => {
@@ -65,17 +69,21 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
             axios.post(`https://books-store-back.herokuapp.com/books/store/newCarts`, newCart)
                 .then((res) => {
                     if (res.status === 200) {
-                        setMsgFavoritesCart(`added To cart Successfully`);
+                        notify("added To cart Successfully")
+                        // setMsgFavoritesCart(`added To cart Successfully`);
                         setCart(true)
                     }
                     else {
-                        alert("Something went wrong")
+                        notify("Something went wrong")
+                        // alert("Something went wrong")
                     }
                 }).catch((err) => {
-                    setMsgFavoritesCart('ERR')
+                    notify("ERROR")
+                    // setMsgFavoritesCart('ERR')
                 })
         } else {
-            setMsgFavoritesCart('This Book Already in your Cart')
+            notify("This Book Already in your Cart")
+            // setMsgFavoritesCart('This Book Already in your Cart')
         }
     }
     const changeCommentHandler = (e) => {
@@ -92,19 +100,23 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
             axios.put(`https://books-store-back.herokuapp.com/books/store/updateCommentBook/${selectedBook._id}`, changeComment)
                 .then((res) => {
                     if (res.status === 200) {
-                        setMsgFavoritesCart(`Your Comment has been Added successfully`)
+                        notify("Your Comment has been Added successfully")
+                        // setMsgFavoritesCart(`Your Comment has been Added successfully`)
                         const commentsArray = selectedBook.comments;
                         commentsArray.push(changeComment.comments)
                         setSelectedBookComm(commentsArray)
                     }
                     else {
-                        alert("Something went wrong")
+                        notify("Something went wrong")
+                        // alert("Something went wrong")
                     }
                 }).catch((err) => {
-                    setMsgFavoritesCart('ERROR')
+                    notify("ERROR")
+                    // setMsgFavoritesCart('ERROR')
                 })
         } else {
-            setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
+            notify("You Should Fill in the input to Added Your Coment")
+            // setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
         }
     }
     const selectRatingHandler = (e) => {
@@ -121,18 +133,22 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
             axios.put(`https://books-store-back.herokuapp.com/books/store/updateRatingBook/${selectedBook._id}`, ratingSt)
                 .then((res) => {
                     if (res.status === 200) {
-                        setMsgFavoritesCart(`Your rating has been Added successfully`)
+                        // setMsgFavoritesCart(`Your rating has been Added successfully`)
+                        notify("Your rating has been Added successfully")
                         const ratingsCalc = (selectedBook.rating * selectedBook.purchase + ratingSt.rating) / (selectedBook.purchase + 1);
                         setNewRating(ratingsCalc)
                     }
                     else {
-                        alert("Something went wrong")
+                        notify("Something went wrong")
+                        // alert("Something went wrong")
                     }
                 }).catch((err) => {
-                    setMsgFavoritesCart('ERROR')
+                    notify("ERROR")
+                    // setMsgFavoritesCart('ERROR')
                 })
         } else {
-            setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
+            notify("You Should Fill in the input to Added Your Comment")
+            // setMsgFavoritesCart('You Should Fill in the input to Added Your Coment')
         }
     }
     const btnMessageToUserHandler = () => {
@@ -168,22 +184,25 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                         setTitleToUser(null)
                         setContentToUser(null)
                         // setMsg(`Your Message was sended successfully`)
-                        notify()
+                        notify("Your Message was sended successfully")
                         // alert(`Book ${addBook.name}, was added successfully`)
                         // window.location.reload(false);
                     }
                     else {
-                        alert("Something went wrong")
+                        notify("Something went wrong")
+                        // alert("Something went wrong")
                     }
                 }).catch((err) => {
+                    notify("ERROR")
                     // setMsg('ERROR')
-                    console.log(err);
+                    // console.log(err);
                 })
         } else {
-            console.log("msg: please fill All Inputs");
+            notify("msg: please fill All Inputs")
+            // console.log("msg: please fill All Inputs");
         }
     }
-    const notify = () => toast("Your Message was sended successfully");
+    const notify = (ms) => toast(ms);
     return (
         <div className="ui container">
             <div className="users-details">
@@ -264,6 +283,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                                 <option name={'rating'} value="5">5</option>
                             </select>
                             <input type="button" value='rate' onClick={addSelectRatingHandler} />
+                            <ToastContainer />
                         </div>
 
                         <hr />
@@ -271,11 +291,13 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                             {/* <input type="text" name={'comments'} placeholder={account.name} onChange={changeCommentHandler} /> */}
                             <input type="text" name={'comments'} placeholder='Something To Say...' onChange={changeCommentHandler} />
                             <input type="button" value='Add Comment' onClick={addCommentHandler} />
+                            <ToastContainer />
                         </div>
                         <hr />
                         <div>
                             <input type="button" value='Add To Cart 🛒' onClick={addToCartHandler} />
                             <input type="button" value='Add To Favorites ✰' onClick={addToFavoritesHandler} />
+                            <ToastContainer />
                         </div>
                         <hr />
                         <div>

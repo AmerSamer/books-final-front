@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Favorites = ({ account }) => {
     const [allUserFavorites, setAllUserFavorites] = React.useState(null);
@@ -19,17 +21,20 @@ const Favorites = ({ account }) => {
         axios.put(`https://books-store-back.herokuapp.com/books/store/updateUserFavorites/${id}`)
             .then((res) => {
                 if (res.status === 200) {
-                    setDeleteMsg(`Deleted ${name}, was made successfully`)
+                    // setDeleteMsg(`Deleted ${name}, was made successfully`)
+                    notify(`Deleted ${name} from favorites, was made successfully`)
                     setRefresh(true)
                 }
                 else {
-                    alert("Something went wrong")
+                    // alert("Something went wrong")
+                    notify("Something went wrong")
                 }
             }).catch((err) => {
-                setDeleteMsg('ERROR')
+                notify("ERROR")
+                // setDeleteMsg('ERROR')
             })
     }
-
+    const notify = (ms) => toast(ms);
     return (
         <>
             <div className="ui container">
@@ -91,6 +96,7 @@ const Favorites = ({ account }) => {
                                             <div className="buttonEditRemove">
                                                 {/* <input type="button" value="-" onClick={()=>minusCount(i._id)}/><input type="number" value={count}/><input type="button"  value="+" onClick={plusCount} /> */}
                                                 <input type="button" className="removeBook" value="Remove" onClick={() => removeBookFavoritesHandler(i._id, i.book.name)} />
+                                                <ToastContainer />
                                                 {/* <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} /> */}
                                                 {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}
                                             </div>
