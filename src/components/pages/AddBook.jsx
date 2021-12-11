@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FileUpload from "../uploads/FileUpload";
 // import FileUpload from "../uploadImage/FileUpload";
 
 const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publishing, amount, language, category, desc, price, user }) => {
@@ -93,7 +94,9 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
             setMsg('You Should Fill in all the inputs')
         }
     }
-
+    const axx = (e) => {
+        console.log(e.target.file);
+    }
     const notify = () => toast(`Book ${addBook.name}, was added successfully`);
 
     return (
@@ -105,7 +108,7 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
                 </div>
                 <div style={{ textAlign: "center" }}>
                 
-                    Image:<input type="file" name='img' id='img' onChange={addBookHandler}/> <br />
+                    {/* Image:<input type="file" name='img' id='img' onChange={axx}/> <br /> */}
                     Book Name: <input type="text" name={'name'} onChange={addBookHandler} /> <br />
                     author: <input type="text" name={'author'} onChange={addBookHandler} /><br />
                     publishing Date: <input type="number" name={'publishing'} onChange={addBookHandlerInt} /><br />  {/*  number  */}
@@ -115,10 +118,11 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
                     desc: <input type="text" name={'desc'} onChange={addBookHandler} /> <br />
                     price: <input type="number" min='0' name={'price'} onChange={addBookHandlerInt} /><br /> {/*  number  */}
                     {/* user email: <input type="text" name={'user'} onChange={addBookHandler} /> <br /> */}
-
+                    
                     <input type="button" value='Add Book' onClick={addBookSubmitHandler} /><br />
                     {msg ? msg : ''}
                     <ToastContainer />
+                    <FileUpload/>
                 </div>
             </div>
         </>
