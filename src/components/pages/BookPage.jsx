@@ -59,7 +59,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
             })
     }
     const addToCartHandler = () => {
-        const found = allUserCarts.find((f) => ((f.user === account._id) && (f.book._id === selectedBook._id)))
+        const found = allUserCarts.find((f) => ((f.user === account._id) && (f.book._id === selectedBook._id) && f.cart))
         if (!found) {
             const newCart = {
                 user: account._id,
