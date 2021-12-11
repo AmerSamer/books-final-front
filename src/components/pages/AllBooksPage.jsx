@@ -1,5 +1,6 @@
 import React from "react";
 import BookPage from "./BookPage";
+// import Search from "./Search";
 
 const AllBooksPage = ({ account, allBooks }) => {
     const [selectedBookk, setSelectedBookk] = React.useState(null);
@@ -15,16 +16,18 @@ const AllBooksPage = ({ account, allBooks }) => {
             setSelectedBookk(b)
         }
     }
+    
     return (
         <>
             <p>hello {account.name}</p>
-
+            <hr/>
+            
             {allBooks ? allBooks.map((allB, index) => {
                 return (
 
 
                     <div key={index} >
-                        
+
 
                         <div className="ui segment" onClick={() => x(allB)}>
                             <div className="ui divided items">

@@ -99,7 +99,8 @@ const Cart = ({ account }) => {
                                         {/* {index<users.length-1 ? <hr/>:""} */}
                                         <div className="buttonEditRemove">
                                             <input type="button" value="-" onClick={()=>minusCount(i._id)}/><input type="number" value={count}/><input type="button"  value="+" onClick={plusCount} />
-                                            <input type="button" className="removeBook" value="Remove" onClick={() => removeBookCartHandler(i._id, i.book.name)} />
+                                            {/* <input type="button" className="removeBook" value="Remove" onClick={() => removeBookCartHandler(i._id, i.book.name)} /> */}
+                                            <button type="button" class="btn btn-danger" onClick={() => removeBookCartHandler(i._id, i.book.name)}>Remove</button>
                                             <ToastContainer />
                                             {/* <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} /> */}
                                             {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}

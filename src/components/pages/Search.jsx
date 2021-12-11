@@ -25,11 +25,13 @@ const Search = ({ account, allBooks }) => {
     const handleChange = event => {
         setSearchTerm(event.target.value);
     };
-    const booksFilterhandleClick = () => {
-        const results = books.filter(b =>
-            b.name.toLowerCase().includes(searchTerm.toLowerCase()) || b.author.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setSearchResults(results);
+    const booksFilterhandleClick = (e) => {
+        if (e.keyCode === 13) {
+            const results = books.filter(b =>
+                b.name.toLowerCase().includes(searchTerm.toLowerCase()) || b.author.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setSearchResults(results);
+        }
     };
     const x = (b) => {
         if (selectedBookk) {
@@ -42,9 +44,6 @@ const Search = ({ account, allBooks }) => {
             setSelectedBookk(b)
         }
     }
-    // const searchItemSelected = (id) => {
-    //     setBookSearchSelected(id)
-    // };
 
     return (
         <>
@@ -52,20 +51,20 @@ const Search = ({ account, allBooks }) => {
                 Hello, {account.name}
                 <hr />
             </div>
-            <div style={{ textAlign: 'center', padding: '1em' }}>
+            {/* <div style={{ textAlign: 'center', padding: '1em' }}>
                 <input type="search" name="search" id="search" placeholder=" Search" value={searchTerm} onChange={handleChange} />
                 <input type="button" className="searchIcon" value="🔍" onClick={booksFilterhandleClick} />
-            </div>
+            </div> */}
+
             {/* ///////////// */}
-            <div>
-                <div class="input-group">
-                    <div class="form-outline">
-                        <input type="search" id="form1" class="form-control" />
-                        <label class="form-label" for="form1">Search</label>
+            Look for your book
+            <div style={{ padding: '1rem' }}>
+                <div className="ui search">
+                    <div className="ui icon input">
+                        <input className="prompt" type="text" placeholder="Search..." value={searchTerm} onChange={handleChange} onKeyUp={booksFilterhandleClick} />
+                        <i className="search icon"></i>
                     </div>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
+                    {/* <div class="results"></div> */}
                 </div>
             </div>
             {/* ////////////////// */}

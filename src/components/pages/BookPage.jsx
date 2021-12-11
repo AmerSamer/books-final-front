@@ -252,10 +252,17 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                             </div>
                         </div>
                         <div>
+
                             <button type="button" class="btn btn-primary" onClick={btnMessageToUserHandler}>Contact User</button>
                             <hr />
                             {messageToUser ? (
                                 <div>
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Book Seller: {account.email}, @{account.name}</label>
+                                        {/* <label for="exampleFormControlInput1" class="form-label">Book Seller Name: @{account.name}</label> */}
+                                        {/* <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title..." onChange={titleHandler} /> */}
+                                    </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Title:</label>
                                         <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title..." onChange={titleHandler} />

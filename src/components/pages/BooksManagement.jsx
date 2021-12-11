@@ -126,8 +126,9 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                             <div className="image">
                                                 <div style={{
                                                     backgroundImage: `url(${i.img})`,
-                                                    height: '150px',
-                                                    width: '150px',
+                                                    height: '100%',
+                                                    width: '100%',
+                                                    backgroundPosition: 'center',
                                                     backgroundSize: 'cover',
                                                     backgroundRepeat: 'no-repeat'
                                                 }}></div>
