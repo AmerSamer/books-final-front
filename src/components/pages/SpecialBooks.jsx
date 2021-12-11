@@ -17,7 +17,7 @@ const SpecialBooks = ({ account, allBooks }) => {
     }
     return (
         <>
-            <p>hello {account.name}</p>
+            <p>Hello, @{account.name}</p>
 
             {allBooks ? allBooks.map((allB, index) => {
                 return (

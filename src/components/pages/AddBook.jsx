@@ -6,12 +6,10 @@ import FileUpload from "../uploads/FileUpload";
 import DragDrop from "../uploads/DragDrop";
 // import FileUpload from "../uploadImage/FileUpload";
 
-const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publishing, amount, language, category, desc, price, user }) => {
+const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishing, amount, language, category, desc, price, user }) => {
     // const [allBooks, setAllBooks] = React.useState(null);
-    // const [refresh, setRefresh] = React.useState(null);
     const [msg, setMsg] = React.useState('')
     const [addBook, setAddBook] = React.useState({
-        img:img,
         name: name,
         author: author,
         publishing: publishing,
@@ -22,7 +20,8 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
         price: price,
         // user: account._id
     });
-    
+    const [img, setImg] = React.useState(null);
+
     const addBookHandler = (e) => {
         setAddBook({
             ...addBook,
@@ -50,7 +49,7 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
                             if (!findBookNameDup) {
                                 const idFind = find._id;
                                 const bookNewAdd = {
-                                    img: addBook.img,
+                                    // img: addBook.img,
                                     name: addBook.name,
                                     author: addBook.author,
                                     publishing: addBook.publishing,
@@ -95,9 +94,34 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
             setMsg('You Should Fill in all the inputs')
         }
     }
-    const axx = (e) => {
-        console.log(e.target.file);
+    const handelClick = () => {
+        console.log(addBook)
+        const sa3da = new FormData()
+        sa3da.append('name',addBook.name)
+        sa3da.append('author',addBook.author)
+        sa3da.append('publishing',addBook.publishing)
+        sa3da.append('amount',addBook.amount)
+        sa3da.append('language',addBook.language)
+        sa3da.append('category',addBook.category)
+        sa3da.append('desc',addBook.desc)
+        sa3da.append('price',addBook.price)
+        sa3da.append('user',account._id)
+        
+        sa3da.append('img',img)
+        axios.post('https://books-store-back.herokuapp.com/books/store/newBook',sa3da,{
+            headers:{
+                'content-type': 'multipart/form-data'
+            }
+        })
+            .then(res => {
+                console.log(res)
+            }).catch(e => {
+                console.log(e)
+            })
     }
+    // const axx = (e) => {
+    //     console.log(e.target.file);
+    // }
     const notify = () => toast(`Book ${addBook.name}, was added successfully`);
 
     return (
@@ -119,12 +143,17 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
                     desc: <input type="text" name={'desc'} onChange={addBookHandler} /> <br />
                     price: <input type="number" min='0' name={'price'} onChange={addBookHandlerInt} /><br /> {/*  number  */}
                     {/* user email: <input type="text" name={'user'} onChange={addBookHandler} /> <br /> */}
-                    
-                    <input type="button" value='Add Book' onClick={addBookSubmitHandler} /><br />
+
+                    {/* <input type="button" value='Add Book' onClick={addBookSubmitHandler} /><br /> */}
+                    <input type="button" value='Add Book' onClick={handelClick} /><br />
                     {msg ? msg : ''}
                     <ToastContainer />
-                    {/* <FileUpload/> */}
-                    <DragDrop/>
+                    {/* Image:<input type="file" name='img' id='img' onChange={axx}/> <br /> */}
+                    Image:<input type='file' name='image'  onChange={(e)=>{
+                        console.log('file',e.target.files[0])
+                        setImg(e.target.files[0])}}
+                         />
+                    {/* <DragDrop/> */}
                 </div>
             </div>
         </>

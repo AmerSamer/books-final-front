@@ -39,14 +39,14 @@ function Home({ account, accounts, allBooks }) {
     return (
         <div>
             <div style={{ width: "100%", height: "600px", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundImage: `url(https://images.pexels.com/photos/626986/pexels-photo-626986.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)` }}>
-                <div className='welcomeUser'>welcome {account.name}</div>
-                <div style={{ textAlign: 'center', padding: '100px', fontSize: '2em', color: 'white' }}>
+                <div className='welcomeUser'>Hello, @{account.name}</div>
+                <div style={{ letterSpacing:'3px' ,textAlign: 'center', padding: '100px', fontSize: '2em', color: 'white' }}>
                     Support Local Bookstores.<br /><br /> Shop Online with Bookshop.
                 </div>
                 <div style={{ textAlign: 'center' }}>
                     <Link className="item" href="/search">
                         {/* <input type="button" className='serachButton' value='search for your book' /> */}
-                        <button type="button" class="btn btn-primary">Search Book</button>
+                        <button type="button" class="btn btn-primary btn-lg" style={{width: '20vw'}}>Search Book</button>
                     </Link>
                     {/* <input type="search" name="search" id="search" placeholder=" Search" value={searchTerm} onChange={handleChange} /> */}
                     {/* <input type="button" className="searchIcon" value="🔍" onClick={booksFilterhandleClick} /> */}

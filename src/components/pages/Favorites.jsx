@@ -7,7 +7,6 @@ const Favorites = ({ account }) => {
     const [allUserFavorites, setAllUserFavorites] = React.useState(null);
     const [allUserCarts, setAllUserCarts] = React.useState(null);
     const [refresh, setRefresh] = React.useState(null);
-    const [deleteMsg, setDeleteMsg] = React.useState(null);
 
     React.useEffect(() => {
         getFavoritesUser();
@@ -18,10 +17,10 @@ const Favorites = ({ account }) => {
         setAllUserFavorites(response.data);
     }
     const getCartUser = async () => {
-        
+
         const response = await axios.get(`https://books-store-back.herokuapp.com/books/store/getAllcartsByUser/${account._id}`);
         setAllUserCarts(response.data);
-        console.log("response.data",response.data);
+        console.log("response.data", response.data);
     }
     const removeBookFavoritesHandler = (id, name) => {
         axios.put(`https://books-store-back.herokuapp.com/books/store/updateUserFavorites/${id}`)
@@ -41,7 +40,7 @@ const Favorites = ({ account }) => {
             })
     }
     const addToCartHandler = (book) => {
-        console.log("id",book);
+        console.log("id", book);
         const found = allUserCarts.find((f) => ((f.user === account._id) && (f.book._id === book._id)))
         if (!found) {
             const newCart = {
@@ -73,10 +72,10 @@ const Favorites = ({ account }) => {
     return (
         <>
             <div className="ui container">
-                {deleteMsg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{deleteMsg}</div> : ''}
-                <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Your Favorites:</div><br />
-                {/* {allUserCarts ? console.log(allUserCarts) : ''} */}
-                {/* {msg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{msg}</div> : ''} */}
+            <div style={{ letterSpacing: "7px",textAlign: "center", padding: "1rem", fontSize: '23px' }}>
+                BookMark
+            </div>
+                {/* <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Your Favorites:</div><br /> */}
                 <div className="users-details">
                     {
                         allUserFavorites ? allUserFavorites.map((i, index) => {

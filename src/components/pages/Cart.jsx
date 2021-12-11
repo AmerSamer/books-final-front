@@ -55,7 +55,7 @@ const Cart = ({ account }) => {
                 }
             }).catch((err) => {
                 notify('ERROR')
-                
+
             })
     }
 
@@ -63,7 +63,10 @@ const Cart = ({ account }) => {
     return (
         <>
             <div className="ui container" >
-                <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Your Cart:</div><br />
+                <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px' }}>
+                    Cart
+                </div>
+                {/* <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Your Cart:</div><br /> */}
                 <div className="users-details">
                     {
                         allUserCarts ? allUserCarts.map((i, index) => {
@@ -126,16 +129,18 @@ const Cart = ({ account }) => {
                             )
                         }) : ''
                     }
-
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-success" onClick={buyBtnHandler}>Buy</button>
+                    <div class="mb-3" style={{ padding: '1rem' }}>
+                        <button type="button" class="btn btn-success btn-lg" style={{ width: '100%' }} onClick={buyBtnHandler}>Buy</button>
                         <ToastContainer />
                     </div>
 
 
                 </div>
                 {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
-                <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Shopping History:</div><br />
+                <div style={{ letterSpacing: "10px", textAlign: "center", padding: "1rem", fontSize: '23px' }}>
+                    Shopping  History
+                </div>
+                {/* <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Shopping History:</div><br /> */}
                 <div className="users-details">
                     {
                         allUserCarts ? allUserCarts.map((i, index) => {

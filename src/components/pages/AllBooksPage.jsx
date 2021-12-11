@@ -19,16 +19,12 @@ const AllBooksPage = ({ account, allBooks }) => {
     
     return (
         <>
-            <p>hello {account.name}</p>
+            <p>Hello, @{account.name}</p>
             <hr/>
             
             {allBooks ? allBooks.map((allB, index) => {
                 return (
-
-
                     <div key={index} >
-
-
                         <div className="ui segment" onClick={() => x(allB)}>
                             <div className="ui divided items">
                                 <div className="item" >

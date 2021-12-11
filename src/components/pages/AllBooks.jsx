@@ -78,10 +78,11 @@ const AllBooks = ({ account, accounts, allBooks }) => {
     }
 
     return (
+
         <div>
-            <div style={{ textAlign: "center", padding: "6rem", fontSize: '20px' }}>
+            <div style={{ letterSpacing: "50px",textAlign: "center", padding: "6rem", fontSize: '30px' }}>
                 <Link className="item" href="/allBooks">
-                    All Books Random
+                    All  Books
                 </Link>
             </div>
             <div>
@@ -91,7 +92,7 @@ const AllBooks = ({ account, accounts, allBooks }) => {
                             (index === 0 || index === 1 || index === 2 || index === 3 || index === 4) ? (
                                 <div key={b._id} className={'gridddSon'} onClick={() => randomBooksHandler(b)}>
                                     <img src={`${b.img}`} style={{ height: '60vh', width: '100%' }} />
-                                    <p className={'centeredText'}>{b.name}</p>
+                                    {/* <p className={'centeredText'}>{b.name}</p> */}
                                 </div>
                             ) : ''
                         )
@@ -101,8 +102,8 @@ const AllBooks = ({ account, accounts, allBooks }) => {
                     {(selectedBookAllBooksRandom) ? <BookPage account={account} selectedBook={selectedBookAllBooksRandom} /> : ''}
                 </div>
             </div>
-            <div style={{ textAlign: "center", padding: "6rem", fontSize: '20px' }}>
-                <div>Top Purchases</div>
+            <div >
+                <div style={{ letterSpacing: "50px",textAlign: "center", padding: "6rem", fontSize: '30px' }}>Top  Purchases</div>
             </div>
             <div>
                 <div id="grid">
@@ -111,7 +112,7 @@ const AllBooks = ({ account, accounts, allBooks }) => {
                             ((higherPurchase.length !== 0) && (b.purchase === higherPurchase[0] || b.purchase === higherPurchase[1] || b.purchase === higherPurchase[2] || b.purchase === higherPurchase[3])) ? (
                                 <div key={b._id} className={'gridSon'} onClick={() => topPurchasesHandler(b)} style={{ backgroundColor: "transparent" }}>
                                     <img src={`${b.img}`} style={{ height: '60vh', width: '100%' }} />
-                                    <p className={'centeredText'}>{b.name}</p>
+                                    {/* <p className={'centeredText'}>{b.name}</p> */}
 
                                 </div>
                             ) : ''
@@ -122,8 +123,8 @@ const AllBooks = ({ account, accounts, allBooks }) => {
                     {(selectedBook) ? <BookPage account={account} selectedBook={selectedBook} /> : ''}
                 </div>
             </div>
-            <div style={{ textAlign: "center", padding: "6rem", fontSize: '20px' }}>
-                <div>Newest Books</div>
+            <div >
+                <div style={{ letterSpacing: "50px",textAlign: "center", padding: "6rem", fontSize: '30px' }}>Newest  Books</div>
             </div>
             <div>
                 <div id="gridd">
@@ -132,7 +133,7 @@ const AllBooks = ({ account, accounts, allBooks }) => {
                             ((index === allBooks.length - 1 || index === allBooks.length - 2 || index === allBooks.length - 3 || index === allBooks.length - 4 || index === allBooks.length - 5)) ? (
                                 <div key={b._id} className={'griddSon'} onClick={() => newestBooksHandler(b)}>
                                     <img src={`${b.img}`} style={{ height: '60vh', width: '100%' }} />
-                                    <p className={'centeredText'}>{b.name}</p>
+                                    {/* <p className={'centeredText'}>{b.name}</p> */}
                                 </div>
                             ) : ''
                         )
