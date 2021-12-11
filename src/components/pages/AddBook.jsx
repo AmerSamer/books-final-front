@@ -3,6 +3,7 @@ import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FileUpload from "../uploads/FileUpload";
+import DragDrop from "../uploads/DragDrop";
 // import FileUpload from "../uploadImage/FileUpload";
 
 const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publishing, amount, language, category, desc, price, user }) => {
@@ -122,7 +123,8 @@ const AddBook = ({ account, addItem, allBooks, accounts,img, name, author, publi
                     <input type="button" value='Add Book' onClick={addBookSubmitHandler} /><br />
                     {msg ? msg : ''}
                     <ToastContainer />
-                    <FileUpload/>
+                    {/* <FileUpload/> */}
+                    <DragDrop/>
                 </div>
             </div>
         </>
