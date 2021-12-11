@@ -14,6 +14,9 @@ const Header = () => {
                 <Link className="item" href="/search">
                     Search Book
                 </Link>
+                <Link className="item" href="/searchUser">
+                    Search User
+                </Link>
                 <Link className="item" href="/specialBooks">
                     Our Special Books
                 </Link>

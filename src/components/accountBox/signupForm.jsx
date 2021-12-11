@@ -41,36 +41,45 @@ export function SignupForm(props) {
   }
   const addAccountHandler = () => {
     if (addAccount.name && addAccount.email && addAccount.password && addAccount.confirmPassword) {
-      if (validator.validate(addAccount.email)) {
-        if (addAccount.password === addAccount.confirmPassword) {
-          if (schema.validate(addAccount.password)) {
-            const find = props.accounts.find((f) => f.email === addAccount.email)
-            if (!find) {
-              axios.post(`https://books-store-back.herokuapp.com/books/store`, addAccount)
-                .then((res) => {
-                  if (res.status === 200) {
-                    setMsg('Account Added Successfully')
-                    props.addItem(addAccount);
-                    // alert(`${find.email} Sign Up successfully`)
-                    window.location.reload(false);
-                  }
-                  else {
-                    setMsg('Invalid Email!')
-                  }
-                }).catch((err) => {
-                  setMsg('err')
-                })
+      if (!/\s/g.test(addAccount.name)) {
+        if (validator.validate(addAccount.email)) {
+          if (addAccount.password === addAccount.confirmPassword) {
+            if (schema.validate(addAccount.password)) {
+              const find = props.accounts.find((f) => f.email === addAccount.email)
+              if (!find) {
+                const findd = props.accounts.find((ff) => ff.name === addAccount.name)
+                if (!findd) {
+                  axios.post(`https://books-store-back.herokuapp.com/books/store`, addAccount)
+                    .then((res) => {
+                      if (res.status === 200) {
+                        setMsg('Account Added Successfully')
+                        props.addItem(addAccount);
+                        // alert(`${find.email} Sign Up successfully`)
+                        window.location.reload(false);
+                      }
+                      else {
+                        setMsg('Invalid Email!')
+                      }
+                    }).catch((err) => {
+                      setMsg('err')
+                    })
+                } else {
+                  setMsg('User Name Already Exist')
+                }
+              } else {
+                setMsg('Invalid Email!')
+              }
             } else {
-              setMsg('Invalid Email!')
+              setMsg(`Min length 8 , Must have uppercase/lowercase letters , Must have at least 2 digit , Should not have spaces`)
             }
           } else {
-            setMsg(`Min length 8 , Must have uppercase/lowercase letters , Must have at least 2 digit , Should not have spaces`)
+            setMsg('Password not match!')
           }
         } else {
-          setMsg('Password not match!')
+          setMsg('Invalid Email!')
         }
       } else {
-        setMsg('Invalid Email!')
+        setMsg('User Name Should Not include Space-Key')
       }
     } else {
       setMsg('Fill In All Inputs')
@@ -79,7 +88,7 @@ export function SignupForm(props) {
   return (
     <BoxContainer>
       <FormContainer>
-        <Input type="text" name="name" placeholder="Full Name" onChange={addHandler} />
+        <Input type="text" name="name" placeholder="User Name" onChange={addHandler} />
         <Input type="email" name="email" placeholder="Email" onChange={addHandler} />
         <Input type="password" name="password" placeholder="Password" onChange={addHandler} />
         <Input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={addHandler} />

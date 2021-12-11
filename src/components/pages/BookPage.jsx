@@ -90,7 +90,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
         if (e.target.value) {
             setChangeComment({
                 ...changeComment,
-                [e.target.name]: "User Name: " + account.name + ", Date: " + new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear() + ", Comment: " + (filterBadWords.clean((e.target.value))) // filtering Bad Words from user input
+                [e.target.name]: "@" + account.name + ", " + new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear() + ", - " + (filterBadWords.clean((e.target.value))) // filtering Bad Words from user input
             })
         }
 
@@ -259,7 +259,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                                 <div>
 
                                     <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Book Seller: {account.email}, @{account.name}</label>
+                                        <label for="exampleFormControlInput1" class="form-label">Book Seller: @{account.name}</label>
                                         {/* <label for="exampleFormControlInput1" class="form-label">Book Seller Name: @{account.name}</label> */}
                                         {/* <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title..." onChange={titleHandler} /> */}
                                     </div>

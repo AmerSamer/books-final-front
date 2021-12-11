@@ -18,6 +18,7 @@ import SpecialBooks from './SpecialBooks';
 import AllBooksPage from './AllBooksPage';
 import Search from './Search';
 import User from './User';
+import SearchUser from './SearchUser';
 // import {
 //     BrowserRouter as Router,
 //     Routes,
@@ -184,6 +185,11 @@ const Main = () => {
                         <Route path="/search">
                             {
                                 (account && allBooks) ? <Search account={account} allBooks={allBooks}/> : 'You are not login!'
+                            }
+                        </Route>
+                        <Route path="/searchUser">
+                            {
+                                (account && allBooks && accounts) ? <SearchUser account={account} allBooks={allBooks} accounts={accounts}/> : 'You are not login!'
                             }
                         </Route>
                         <Route path="/notification">

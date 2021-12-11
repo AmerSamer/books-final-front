@@ -70,6 +70,7 @@ const AllBooks = ({ account, accounts, allBooks }) => {
         setHigherPurchase(xy.sort((a, b) => b - a))
     }
     const shuffleRandomBooks = () => {
+        xyz = []
         for (let i = 0; i < allBooks.length; i++) {
             xyz.push(allBooks[i]);
         }
@@ -79,24 +80,39 @@ const AllBooks = ({ account, accounts, allBooks }) => {
     return (
         <div>
             <div style={{ textAlign: "center", padding: "6rem", fontSize: '20px' }}>
+                <Link className="item" href="/allBooks">
+                    All Books Random
+                </Link>
+            </div>
+            <div>
+                <div id="griddd">
+                    {allBooks && shuffleAll ? shuffleAll.map((b, index) => {
+                        return (
+                            (index === 0 || index === 1 || index === 2 || index === 3 || index === 4) ? (
+                                <div key={b._id} className={'gridddSon'} onClick={() => randomBooksHandler(b)}>
+                                    <img src={`${b.img}`} style={{ height: '60vh', width: '100%' }} />
+                                    <p className={'centeredText'}>{b.name}</p>
+                                </div>
+                            ) : ''
+                        )
+                    }) : ''}
+                </div>
+                <div>
+                    {(selectedBookAllBooksRandom) ? <BookPage account={account} selectedBook={selectedBookAllBooksRandom} /> : ''}
+                </div>
+            </div>
+            <div style={{ textAlign: "center", padding: "6rem", fontSize: '20px' }}>
                 <div>Top Purchases</div>
-                {/* {console.log(higherPurchase)} */}
             </div>
             <div>
                 <div id="grid">
                     {((allBooks) && (higherPurchase.length !== 0)) ? allBooks.map((b, index) => {
-                        // (index === allBooks.length - 1 || index === allBooks.length - 2 || index === allBooks.length - 3 || index === allBooks.length - 4)
                         return (
                             ((higherPurchase.length !== 0) && (b.purchase === higherPurchase[0] || b.purchase === higherPurchase[1] || b.purchase === higherPurchase[2] || b.purchase === higherPurchase[3])) ? (
                                 <div key={b._id} className={'gridSon'} onClick={() => topPurchasesHandler(b)} style={{ backgroundColor: "transparent" }}>
                                     <img src={`${b.img}`} style={{ height: '60vh', width: '100%' }} />
                                     <p className={'centeredText'}>{b.name}</p>
-                                    {/* <div className={'centered'} style={{ fontSize: '3em' }}>
-                                        <p className={'centeredText'}>{b.name}</p>
-                                        <p className={'centeredText'}>{b.author}</p>
-                                        <p className={'centeredText'}>{b.publishing}</p>
-                                    </div> */}
-                                 
+
                                 </div>
                             ) : ''
                         )
@@ -124,32 +140,6 @@ const AllBooks = ({ account, accounts, allBooks }) => {
                 </div>
                 <div>
                     {(selectedBookNewest) ? <BookPage account={account} selectedBook={selectedBookNewest} /> : ''}
-                </div>
-            </div>
-            <div style={{ textAlign: "center", padding: "6rem", fontSize: '20px' }}>
-                {/* <Link to='/allBooks' > All Books Random </Link> */}
-                <Link className="item" href="/allBooks">
-                    All Books Random
-
-                </Link>
-                {/* <a href='/allBooks'><div>All Books Random</div></a> */}
-            </div>
-            <div>
-                <div id="griddd">
-
-                    {allBooks && shuffleAll ? shuffleAll.map((b, index) => {
-                        return (
-                            (index === 0 || index === 1 || index === 2 || index === 3 || index === 4) ? (
-                                <div key={b._id} className={'gridddSon'} onClick={() => randomBooksHandler(b)}>
-                                    <img src={`${b.img}`} style={{ height: '60vh', width: '100%' }} />
-                                    <p className={'centeredText'}>{b.name}</p>
-                                </div>
-                            ) : ''
-                        )
-                    }) : ''}
-                </div>
-                <div>
-                    {(selectedBookAllBooksRandom) ? <BookPage account={account} selectedBook={selectedBookAllBooksRandom} /> : ''}
                 </div>
             </div>
             <Footer />
