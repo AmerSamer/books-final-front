@@ -49,7 +49,7 @@ const Main = () => {
     React.useEffect(() => {
         getDataAccounts();
         getAllBooks();
-        
+
     }, [addbBooktrue])
 
     const getDataAccounts = async () => {
@@ -93,120 +93,115 @@ const Main = () => {
     }
     ///////////////////////////
     const checkValid = (e) => {
-        // console.log(accountExtra);
         if ((e.target.value).length === 24) {
             if (accountExtra.length !== 0) {
                 const dd = accountExtra.filter(f => f._id === (e.target.value));
-                // console.log(dd[0]);
                 setAccount(dd[0])
-                // console.log(dd);
-                // arr.push(dd[0])
                 if (dd.length !== 0) {
                     getAllBooksByUser(dd[0]._id)
                 } else {
                     console.log("Errorrrrrrrrrrrrrrrrrrr");
                 }
-                // accountExtra.map((bon)=>{
-                //     console.log(bon._id)
-                //  })
+
             }
         }
-        // setXx(e.target.value)
-        //    console.log(e.target.value); 
     }
-    const checkValidClick = () => {
-        // accountExtra.length !== 0&&xx ? (accountExtra.map((bon)=>{
-        //    return bon._id===xx
-        // })) : ''
-    }
+
     ///////////////////////////////
     return (
         // <div className="ui container">
         // <Router>
+        <div className="ui segment">
+            {/* main menu */}
+            <Header />
             <div className="ui segment">
-                {/* main menu */}
-                <Header />
-                <div className="ui segment">
-                    {/* <Routes> */}
-                        <Route path="/">
-                            {
-                                (account && allBooks) ? <Home account={account} accounts={accounts} allBooks={allBooks} /> : 'You Should to Log In To see Content'
-                            }
-                        </Route>
-                        <Route path="/login">
-                            {
-                                <AppContainer>
-                                    <AccountBox />
-                                </AppContainer>
-                            }
-                        </Route>
-                        <Route path="/logout">
-                            {
-                                account ? <Logout account={account} /> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/newbook">
-                            {
-                                (account && allBooks ) ? <AddBook account={account} accounts={accounts} allBooks={allBooks} addItem={addItem}/> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/booksmanagement">
-                            {
-                                // working on
-                                (account) ? <BooksManagement account={account} allBooks={removeBookHandler} /> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/chart">
-                            {
-                                // working on
-                                (account && allBooksByUser && allBooksByUserPurchase) ? <Chart account={account} allBooksByUser={allBooksByUser} allBooksByUserPurchase={allBooksByUserPurchase} /> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/cart">
-                            {
-                                (account) ? <Cart account={account} /> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/favorites">
-                            {
-                                (account) ? <Favorites account={account} /> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/specialBooks">
-                            {
-                                (account && allBooks) ? <SpecialBooks account={account} allBooks={allBooks} /> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/allBooks">
-                            {
-                                (account && allBooks) ? <AllBooksPage account={account} allBooks={allBooks} /> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/search">
-                            {
-                                (account && allBooks) ? <Search account={account} allBooks={allBooks}/> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/searchUser">
-                            {
-                                (account && allBooks && accounts) ? <SearchUser account={account} allBooks={allBooks} accounts={accounts}/> : 'You are not login!'
-                            }
-                        </Route>
-                        <Route path="/notification">
-                            {
-                                (account && allBooks ) ? <User account={account} allBooks={allBooks}/> : 'You are not login!'
-                            }
-                        </Route>
-                    {/* </Routes> */}
-                    {!account ? (
-                        <div>
-                            <input type="text" id="" onChange={checkValid} />
-                            <input type="button" name="" value="enter" onClick={checkValidClick} />
+                {/* <Routes> */}
+                <Route path="/">
+                    {
+                        (account && allBooks) ? <Home account={account} accounts={accounts} allBooks={allBooks} /> : ''
+                    }
+                </Route>
+                <Route path="/login">
+                    {
+                        <AppContainer>
+                            <AccountBox />
+                        </AppContainer>
+                    }
+                </Route>
+                <Route path="/logout">
+                    {
+                        account ? <Logout account={account} /> : ''
+                    }
+                </Route>
+                <Route path="/newbook">
+                    {
+                        (account && allBooks) ? <AddBook account={account} accounts={accounts} allBooks={allBooks} addItem={addItem} /> : ''
+                    }
+                </Route>
+                <Route path="/booksmanagement">
+                    {
+                        // working on
+                        (account) ? <BooksManagement account={account} allBooks={removeBookHandler} /> : ''
+                    }
+                </Route>
+                <Route path="/chart">
+                    {
+                        // working on
+                        (account && allBooksByUser && allBooksByUserPurchase) ? <Chart account={account} allBooksByUser={allBooksByUser} allBooksByUserPurchase={allBooksByUserPurchase} /> : ''
+                    }
+                </Route>
+                <Route path="/cart">
+                    {
+                        (account) ? <Cart account={account} /> : ''
+                    }
+                </Route>
+                <Route path="/favorites">
+                    {
+                        (account) ? <Favorites account={account} /> : ''
+                    }
+                </Route>
+                <Route path="/specialBooks">
+                    {
+                        (account && allBooks) ? <SpecialBooks account={account} allBooks={allBooks} /> : ''
+                    }
+                </Route>
+                <Route path="/allBooks">
+                    {
+                        (account && allBooks) ? <AllBooksPage account={account} allBooks={allBooks} /> : ''
+                    }
+                </Route>
+                <Route path="/search">
+                    {
+                        (account && allBooks) ? <Search account={account} allBooks={allBooks} /> : ''
+                    }
+                </Route>
+                <Route path="/searchUser">
+                    {
+                        (account && allBooks && accounts) ? <SearchUser account={account} allBooks={allBooks} accounts={accounts} /> : ''
+                    }
+                </Route>
+                <Route path="/notification">
+                    {
+                        (account && allBooks) ? <User account={account} allBooks={allBooks} /> : ''
+                    }
+                </Route>
+                {/* </Routes> */}
+                {!account ? (
+                    <div>
+                       
+                        <div className="ui form">
+                            <div className="three fields">
+                                <div className="field" style={{textAlign: 'center', margin: '5% auto'}}>
+                                    <label>You need to LOGIN, and then, enter the SECRET CODE in this field</label>
+                                    <input type="text" id={'validSecretKey'} placeholder="Secret Key..." onChange={checkValid} />
+                                </div>
+                            </div>
                         </div>
-                    ) : ''}
+                    </div>
+                ) : ''}
 
-                </div>
-            </div >
+            </div>
+        </div >
         // </Router>
         //</div> 
 

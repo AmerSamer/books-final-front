@@ -83,12 +83,8 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                         axios.put(`https://books-store-back.herokuapp.com/books/store/updateBookByUser/${idBookUpdated}`, itemsOnChange)
                             .then((res) => {
                                 if (res.status === 200) {
-                                    // setMsgUpdated(`Changed was added successfully`)
                                     setRefresh(!refresh)
-                                    notify('Changed was added successfully')
-                                    // alert(`Changed was added successfully`)
-                                    // window.location.reload(false);
-                                    // addItem(creditAccount)
+                                    notify('Changed was added successfully')                           
                                 }
                                 else {
                                     notify('Something went wrong')
@@ -121,7 +117,6 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                 <hr />
             </div>
             <div className="ui container">
-                {/* {msg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{msg}</div> : ''} */}
                 <div className="users-details">
                     {
                         allAccountBooks ? allAccountBooks.map((i, index) => {
@@ -166,17 +161,13 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                         </div>
                                         <div>
                                             Id: {i._id} <hr /> Upload Date: {i.bookUploadDate}
-                                            {/* id: {i.id} name: {i.name} userName: {i.userName} country: {i.country} total Amount: {total[index]} */}
                                         </div>
                                         <hr />
-                                        {/* {index<users.length-1 ? <hr/>:""} */}
                                         <div className="buttonEditRemove">
                                             <button type="button" class="btn btn-danger" onClick={() => removeBookHandler(i._id, i.name)}>Remove</button>
                                             <button type="button" class="btn btn-secondary" onClick={() => updateBookHandler(i._id, i.name)}>Edit</button>
                                             <ToastContainer />
-                                            {/* <input type="button" className="removeBook" value="Remove" onClick={() => removeBookHandler(i._id, i.name)} /> */}
-                                            {/* <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} /> */}
-                                            {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}
+                                           
                                         </div>
                                         {((isUpdateclicked) && (bookNameUpdated === i.name)) ? (
                                             <div>
@@ -186,31 +177,7 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                                         Field updates
                                                         <hr />
                                                     </div>
-                                                    {/* <hr /><div>Field updates</div> */}
-                                                    {/* <span>
-                                                        name: <input type="text" name={'name'} onChange={updateInputsHandler} />
-                                                    </span>
-                                                    <span>
-                                                        author:<input type="text" name={'author'} onChange={updateInputsHandler} />
-                                                    </span>
-                                                    <span>
-                                                        publishing:<input type="number" name={'publishing'} onChange={updateInputsIntHandler} />
-                                                    </span>
-                                                    <span>
-                                                        language: <input type="text" name={'language'} onChange={updateInputsHandler} />
-                                                    </span>
-                                                    <span>
-                                                        category:<input type="text" name={'category'} onChange={updateInputsHandler} />
-                                                    </span>
-                                                    <span>
-                                                        desc:<input type="text" name={'desc'} onChange={updateInputsHandler} />
-                                                    </span>
-                                                    <span>
-                                                        price: <input type="number" name={'price'} onChange={updateInputsIntHandler} />
-                                                    </span>
-                                                    <span>
-                                                        amount:<input type="number" name={'amount'} onChange={updateInputsIntHandler} />
-                                                    </span> */}
+                        
                                                     {/* /////////////////////// */}
                                                     <div className="ui form">
                                                         <div className="three fields">
@@ -261,18 +228,9 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                                             
                                                         </div>
                                                     </div>
-                                                    {/* /////////////////////// */}
-                                                    {/* name: <input type="text" name={'name'} onChange={updateInputsHandler} />
-                                                    author:<input type="text" name={'author'} onChange={updateInputsHandler} />
-                                                    publishing:<input type="number" name={'publishing'} onChange={updateInputsIntHandler} />
-                                                    language: <input type="text" name={'language'} onChange={updateInputsHandler} />
-                                                    category:<input type="text" name={'category'} onChange={updateInputsHandler} />
-                                                    desc:<input type="text" name={'desc'} onChange={updateInputsHandler} />
-                                                    price: <input type="number" name={'price'} onChange={updateInputsIntHandler} />
-                                                    amount:<input type="number" name={'amount'} onChange={updateInputsIntHandler} /> */}
+                                              
                                                     <br />
                                                     <button type="button" class="btn btn-success" onClick={addUpdatedInputsHandler}>Update</button>
-                                                    {/* <input type="button" value="Update" onClick={addUpdatedInputsHandler} /> */}
                                                     <ToastContainer />
                                                 </div>
                                                 <div>
