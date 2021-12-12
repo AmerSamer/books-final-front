@@ -103,7 +103,10 @@ function Chart({ account , allBooksByUser , allBooksByUserPurchase }) {
 
   return (
     <>
-    {console.log(allBooksByUser)}
+    <div>
+                Hello, @{account.name}
+                <hr />
+            </div>
       <Bar options={options} data={data} />
     </>
   )

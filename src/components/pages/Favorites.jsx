@@ -71,10 +71,14 @@ const Favorites = ({ account }) => {
     const notify = (ms) => toast(ms);
     return (
         <>
-            <div className="ui container">
-            <div style={{ letterSpacing: "7px",textAlign: "center", padding: "1rem", fontSize: '23px' }}>
-                BookMark
+            <div>
+                Hello, @{account.name}
+                <hr />
             </div>
+            <div className="ui container">
+                <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px' }}>
+                    BookMarks
+                </div>
                 {/* <div style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>Your Favorites:</div><br /> */}
                 <div className="users-details">
                     {

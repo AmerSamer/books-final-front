@@ -62,6 +62,10 @@ const Cart = ({ account }) => {
     const notify = (ms) => toast(ms);
     return (
         <>
+            <div>
+                Hello, @{account.name}
+                <hr />
+            </div>
             <div className="ui container" >
                 <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px' }}>
                     Cart

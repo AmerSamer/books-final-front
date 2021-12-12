@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function BooksManagement({ allBooks, account, name, author, publishing, language, category, desc, price, amount }) {
     const [allAccountBooks, setAllAccountBooks] = React.useState(null);
-    const [msg, setMsg] = React.useState(null);
+    // const [msg, setMsg] = React.useState(null);
     const [isUpdateclicked, setIsUpdateclicked] = React.useState(false);
     const [bookNameUpdated, setBookNameUpdated] = React.useState(null);
     const [idBookUpdated, setIdBookUpdated] = React.useState(null);
@@ -95,7 +95,8 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
                                     // alert("Something went wrong")
                                 }
                             }).catch((err) => {
-                                setMsg('ERROR')
+                                notify('ERROR')
+                                // setMsg('ERROR')
                             })
                     } else {
                         notify('You should put correct year [1500-2021]')
@@ -112,94 +113,183 @@ function BooksManagement({ allBooks, account, name, author, publishing, language
         }
     }
     const notify = (ms) => toast(ms);
+
     return (
-        <div className="ui container">
-            {msg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{msg}</div> : ''}
-            <div className="users-details">
-                {
-                    allAccountBooks ? allAccountBooks.map((i, index) => {
-                        return (
-                            <div key={index} >
-                                <div className="ui segment">
-                                    <div className="ui divided items">
-                                        <div className="item">
-                                            <div className="image">
-                                                <div style={{
-                                                    backgroundImage: `url(${i.img})`,
-                                                    height: '100%',
-                                                    width: '100%',
-                                                    backgroundPosition: 'center',
-                                                    backgroundSize: 'cover',
-                                                    backgroundRepeat: 'no-repeat'
-                                                }}></div>
-                                            </div>
-                                            <div className="content">
-                                                <p className="header">Name: {i.name}</p>
-                                                <div className="meta">
-                                                    <span>author: {i.author}</span>
-                                                </div>
-                                                <div className="description">
-                                                    <p>Publishing Date: {i.publishing}</p>
-                                                    <p>language: {i.language}</p>
-                                                    <p>category: {i.category}</p>
-                                                    <p>desc: {i.desc}</p>
-                                                    <p>price: {i.price}</p>
-                                                    <p>Amount: {i.amount}</p>
-                                                    <p>purchase: {i.purchase}</p>
-                                                </div>
-                                                <div className="extra">
-                                                    <p>rating: {i.rating}</p>
-                                                    <p>comments: <div>{i.comments.map((com) => {
-                                                        return <p key={com}>{com}</p>
-                                                    })}</div></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        Id: {i._id} <hr /> Upload Date: {i.bookUploadDate}
-                                        {/* id: {i.id} name: {i.name} userName: {i.userName} country: {i.country} total Amount: {total[index]} */}
-                                    </div>
-                                    <hr />
-                                    {/* {index<users.length-1 ? <hr/>:""} */}
-                                    <div className="buttonEditRemove">
-                                    <button type="button" class="btn btn-danger" onClick={() => removeBookHandler(i._id, i.name)}>Remove</button>
-                                    <button type="button" class="btn btn-secondary" onClick={() => updateBookHandler(i._id, i.name)}>Edit</button>
-                                    <ToastContainer />
-                                        {/* <input type="button" className="removeBook" value="Remove" onClick={() => removeBookHandler(i._id, i.name)} /> */}
-                                        {/* <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} /> */}
-                                        {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}
-                                    </div>
-                                    {((isUpdateclicked) && (bookNameUpdated === i.name)) ? (
-                                        <div>
-                                            <div className="">
-                                                <hr /><div>Update Inputs That you want:</div>
-                                                name: <input type="text" name={'name'} onChange={updateInputsHandler} />
-                                                author:<input type="text" name={'author'} onChange={updateInputsHandler} />
-                                                publishing:<input type="number" name={'publishing'} onChange={updateInputsIntHandler} />
-                                                language: <input type="text" name={'language'} onChange={updateInputsHandler} />
-                                                category:<input type="text" name={'category'} onChange={updateInputsHandler} />
-                                                desc:<input type="text" name={'desc'} onChange={updateInputsHandler} />
-                                                price: <input type="number" name={'price'} onChange={updateInputsIntHandler} />
-                                                amount:<input type="number" name={'amount'} onChange={updateInputsIntHandler} />
-                                                <br />
-                                                <input type="button" value="Update" onClick={addUpdatedInputsHandler} />
-                                                <ToastContainer />
-                                            </div>
-                                            <div>
-                                                {msgUpdated ? msgUpdated : ''}
-                                            </div>
-                                        </div>
-                                    ) : ''}
-
-                                </div>
-                            </div>
-                        )
-                    }) : <div style={{ textAlign: 'center', fontSize: "20px" }}> You have no books in the list to manage </div>
-                }
+        <>
+            <div>
+                Hello, @{account.name}
+                <hr />
             </div>
+            <div className="ui container">
+                {/* {msg ? <div style={{ textAlign: 'center', color: 'green', fontSize: '20px' }}>{msg}</div> : ''} */}
+                <div className="users-details">
+                    {
+                        allAccountBooks ? allAccountBooks.map((i, index) => {
+                            return (
+                                <div key={index} >
+                                    <div className="ui segment">
+                                        <div className="ui divided items">
+                                            <div className="item">
+                                                <div className="image">
+                                                    <div style={{
+                                                        backgroundImage: `url(${i.img})`,
+                                                        height: '100%',
+                                                        width: '100%',
+                                                        backgroundPosition: 'center',
+                                                        backgroundSize: 'cover',
+                                                        backgroundRepeat: 'no-repeat'
+                                                    }}></div>
+                                                </div>
+                                                <div className="content">
+                                                    <p className="header">Name: {i.name}</p>
+                                                    <div className="meta">
+                                                        <span>author: {i.author}</span>
+                                                    </div>
+                                                    <div className="description">
+                                                        <p>Publishing Date: {i.publishing}</p>
+                                                        <p>language: {i.language}</p>
+                                                        <p>category: {i.category}</p>
+                                                        <p>desc: {i.desc}</p>
+                                                        <p>price: {i.price}</p>
+                                                        <p>Amount: {i.amount}</p>
+                                                        <p>purchase: {i.purchase}</p>
+                                                    </div>
+                                                    <div className="extra">
+                                                        <hr />
+                                                        <p>rating: {i.rating}</p>
+                                                        <p>comments: <div>{i.comments.map((com) => {
+                                                            return <p key={com}>{com}</p>
+                                                        })}</div></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            Id: {i._id} <hr /> Upload Date: {i.bookUploadDate}
+                                            {/* id: {i.id} name: {i.name} userName: {i.userName} country: {i.country} total Amount: {total[index]} */}
+                                        </div>
+                                        <hr />
+                                        {/* {index<users.length-1 ? <hr/>:""} */}
+                                        <div className="buttonEditRemove">
+                                            <button type="button" class="btn btn-danger" onClick={() => removeBookHandler(i._id, i.name)}>Remove</button>
+                                            <button type="button" class="btn btn-secondary" onClick={() => updateBookHandler(i._id, i.name)}>Edit</button>
+                                            <ToastContainer />
+                                            {/* <input type="button" className="removeBook" value="Remove" onClick={() => removeBookHandler(i._id, i.name)} /> */}
+                                            {/* <input type="button" className="editBook" value="Edit" onClick={() => updateBookHandler(i._id, i.name)} /> */}
+                                            {/* {popUp ? <PopUp toggle={removeBookHandler} /> : null} */}
+                                        </div>
+                                        {((isUpdateclicked) && (bookNameUpdated === i.name)) ? (
+                                            <div>
+                                                <div className="">
+                                                    <div>
+                                                        <hr />
+                                                        Field updates
+                                                        <hr />
+                                                    </div>
+                                                    {/* <hr /><div>Field updates</div> */}
+                                                    {/* <span>
+                                                        name: <input type="text" name={'name'} onChange={updateInputsHandler} />
+                                                    </span>
+                                                    <span>
+                                                        author:<input type="text" name={'author'} onChange={updateInputsHandler} />
+                                                    </span>
+                                                    <span>
+                                                        publishing:<input type="number" name={'publishing'} onChange={updateInputsIntHandler} />
+                                                    </span>
+                                                    <span>
+                                                        language: <input type="text" name={'language'} onChange={updateInputsHandler} />
+                                                    </span>
+                                                    <span>
+                                                        category:<input type="text" name={'category'} onChange={updateInputsHandler} />
+                                                    </span>
+                                                    <span>
+                                                        desc:<input type="text" name={'desc'} onChange={updateInputsHandler} />
+                                                    </span>
+                                                    <span>
+                                                        price: <input type="number" name={'price'} onChange={updateInputsIntHandler} />
+                                                    </span>
+                                                    <span>
+                                                        amount:<input type="number" name={'amount'} onChange={updateInputsIntHandler} />
+                                                    </span> */}
+                                                    {/* /////////////////////// */}
+                                                    <div className="ui form">
+                                                        <div className="three fields">
+                                                            <div className="field">
+                                                                <label>Book Name</label>
+                                                                <input type="text" name={'name'} placeholder="Book Name" onChange={updateInputsHandler} />
+                                                                {/* <input type="text" placeholder="First Name"/> */}
+                                                            </div>
+                                                            <div className="field">
+                                                                <label>Book Author</label>
+                                                                <input type="text" name={'author'} placeholder="Book Author" onChange={updateInputsHandler} />
+                                                                {/* <input type="text" placeholder="Middle Name"/> */}
+                                                            </div>
+                                                            <div className="field">
+                                                                <label>publishing Date</label>
+                                                                <input type="number" name={'publishing'} placeholder="publishing Date" onChange={updateInputsIntHandler} />
+                                                                {/* <input type="text" placeholder="Last Name"/> */}
+                                                            </div>
+                                                        </div>
+                                                        <div className="three fields">
+                                                            <div className="field">
+                                                                <label>Book Language</label>
+                                                                <input type="text" name={'language'} placeholder="Book Language" onChange={updateInputsHandler} />
+                                                                {/* <input type="text" placeholder="First Name"/> */}
+                                                            </div>
+                                                            <div className="field">
+                                                                <label>Book Category</label>
+                                                                <input type="text" name={'category'} placeholder="Book Category" onChange={updateInputsHandler} />
+                                                                {/* <input type="text" placeholder="Middle Name"/> */}
+                                                            </div>
+                                                            <div className="field">
+                                                                <label>Description</label>
+                                                                <input type="text" name={'desc'} placeholder="Description" onChange={updateInputsHandler} />
+                                                                {/* <input type="text" placeholder="Last Name"/> */}
+                                                            </div>
+                                                        </div>
+                                                        <div className="three fields">
+                                                            <div className="field">
+                                                                <label>Book Price</label>
+                                                                <input type="number" name={'price'} placeholder="Book Price" onChange={updateInputsIntHandler} />
+                                                                {/* <input type="text" placeholder="First Name"/> */}
+                                                            </div>
+                                                            <div className="field">
+                                                                <label>Amount Stock</label>
+                                                                <input type="number" name={'amount'} placeholder="Amount Stock" onChange={updateInputsIntHandler} />
+                                                                {/* <input type="text" placeholder="Middle Name"/> */}
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    {/* /////////////////////// */}
+                                                    {/* name: <input type="text" name={'name'} onChange={updateInputsHandler} />
+                                                    author:<input type="text" name={'author'} onChange={updateInputsHandler} />
+                                                    publishing:<input type="number" name={'publishing'} onChange={updateInputsIntHandler} />
+                                                    language: <input type="text" name={'language'} onChange={updateInputsHandler} />
+                                                    category:<input type="text" name={'category'} onChange={updateInputsHandler} />
+                                                    desc:<input type="text" name={'desc'} onChange={updateInputsHandler} />
+                                                    price: <input type="number" name={'price'} onChange={updateInputsIntHandler} />
+                                                    amount:<input type="number" name={'amount'} onChange={updateInputsIntHandler} /> */}
+                                                    <br />
+                                                    <button type="button" class="btn btn-success" onClick={addUpdatedInputsHandler}>Update</button>
+                                                    {/* <input type="button" value="Update" onClick={addUpdatedInputsHandler} /> */}
+                                                    <ToastContainer />
+                                                </div>
+                                                <div>
+                                                    {msgUpdated ? msgUpdated : ''}
+                                                </div>
+                                            </div>
+                                        ) : ''}
 
-        </div>
+                                    </div>
+                                </div>
+                            )
+                        }) : <div style={{ textAlign: 'center', fontSize: "20px" }}> You have no books in the list to manage </div>
+                    }
+                </div>
+
+            </div>
+        </>
     );
 }
 

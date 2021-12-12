@@ -71,9 +71,13 @@ const User = ({ account, allBooks }) => {
     const notify = () => toast(`Reply ${replyContentToUser}, was added successfully`);
     return (
         <>
-            <p style={{ fontSize: '1.5em' }}>hello {account.name}</p>
+        <div>
+                Hello, @{account.name}
+                <hr />
+            </div>
+            {/* <p style={{ fontSize: '1.5em' }}>hello {account.name}</p> */}
             <div>
-                <div style={{ textAlign: 'center', fontSize: '2em', padding: '1em' }}>
+                <div style={{ letterSpacing: '10px' ,textAlign: 'center', fontSize: '2em', padding: '1em' }}>
                     Incoming request
                 </div>
 
@@ -98,8 +102,8 @@ const User = ({ account, allBooks }) => {
                                                 {/* <p className="header">book: {allB.bookId}</p> */}
                                                 <p className="header">Book: {allB.bookId.name}</p>
                                                 <div className="meta">
-                                                    <div>from: {allB.usersender.name}</div>
-                                                    <div>To: {allB.userreceiver.name}</div>
+                                                    <div>from: @{allB.usersender.name}</div>
+                                                    <div>To: @{allB.userreceiver.name}</div>
                                                 </div>
                                                 <div className="description">
                                                     <p>Time: {allB.timePublished}</p>
@@ -137,7 +141,7 @@ const User = ({ account, allBooks }) => {
                 }) : ''}
             </div>
             <div>
-                <div style={{ textAlign: 'center', fontSize: '2em', padding: '1em' }}>
+                <div style={{ letterSpacing: '10px', textAlign: 'center', fontSize: '2em', padding: '1em' }}>
                     Outgoing request
                 </div>
 
@@ -161,8 +165,8 @@ const User = ({ account, allBooks }) => {
                                             {/* <p className="header">book: {allB.bookId}</p> */}
                                             <p className="header">Book: {allB.bookId.name}</p>
                                             <div className="meta">
-                                                <div>from: {allB.usersender.name}</div>
-                                                <div>To: {allB.userreceiver.name}</div>
+                                                <div>from: @{allB.usersender.name}</div>
+                                                <div>To: @{allB.userreceiver.name}</div>
                                             </div>
                                             <div className="description">
                                                 <p>Time: {allB.timePublished}</p>
