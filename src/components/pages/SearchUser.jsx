@@ -35,35 +35,21 @@ const SearchUser = ({ account, allBooks, accounts }) => {
         setSearchTerm(event.target.value);
     };
     const booksFilterhandleClick = (e) => {
-        // console.log(books);
         if (e.keyCode === 13) {
-            // const results = user.filter(b =>
-            //     b.email.toLowerCase().includes(searchTerm.toLowerCase())
-            // );
             const results = user.find(b =>
                 b.name === searchTerm
-                // b.email.toLowerCase().includes(searchTerm.toLowerCase())
             );
+            
             if (!results) {
                 setSearchResults([]);
             } else {
                 const resultss = books.filter(b =>
-                    b.user === results._id
+                    b.user._id === results._id
                 )
+            console.log("resultss",resultss);
                 setSearchResults(resultss);
             }
-
         }
-
-
-
-
-        // if (e.keyCode === 13) {
-        //     const results = books.filter(b =>
-        //         b.name.toLowerCase().includes(searchTerm.toLowerCase()) || b.author.toLowerCase().includes(searchTerm.toLowerCase())
-        //     );
-        //     setSearchResults(results);
-        // }
     };
     const x = (b) => {
         if (selectedBookk) {
@@ -83,10 +69,10 @@ const SearchUser = ({ account, allBooks, accounts }) => {
                 Hello, @{account.name}
                 <hr />
             </div>
-            <div style={{ letterSpacing: "1px",textAlign: "center", padding: "0rem", fontSize: '15px' }}>
-            Look for user books
+            <div style={{ letterSpacing: "1px", textAlign: "center", padding: "0rem", fontSize: '15px' }}>
+                Look for user books
             </div>
-            
+
             <div style={{ padding: '1rem', textAlign: 'center' }}>
                 <div className="ui search">
                     <div className="ui icon input">

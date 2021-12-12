@@ -109,11 +109,10 @@ const AllBooks = ({ account, accounts, allBooks }) => {
                 <div id="grid">
                     {((allBooks) && (higherPurchase.length !== 0)) ? allBooks.map((b, index) => {
                         return (
-                            ((higherPurchase.length !== 0) && (b.purchase === higherPurchase[0] || b.purchase === higherPurchase[1] || b.purchase === higherPurchase[2] || b.purchase === higherPurchase[3])) ? (
+                            ((higherPurchase.length !== 0) && (b.purchase === higherPurchase[0] || b.purchase === higherPurchase[1] || b.purchase === higherPurchase[2] || b.purchase === higherPurchase[3] || b.purchase === higherPurchase[4])) ? (
                                 <div key={b._id} className={'gridSon'} onClick={() => topPurchasesHandler(b)} style={{ backgroundColor: "transparent" }}>
                                     <img src={`${b.img}`} style={{ height: '60vh', width: '100%' }} />
                                     {/* <p className={'centeredText'}>{b.name}</p> */}
-
                                 </div>
                             ) : ''
                         )

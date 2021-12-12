@@ -92,7 +92,7 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
         }
     }
     const handelClick = () => {
-        if (addBook.name && addBook.author && addBook.publishing && addBook.amount && addBook.language && addBook.category && addBook.price && img) {
+        if (addBook.name && addBook.author && addBook.publishing && addBook.amount && addBook.language && addBook.category && addBook.price) {
             if ((addBook.publishing >= 1500) && (addBook.publishing <= 2021)) {
                 if (addBook.amount > 0) {
                     if (addBook.price > 0) {
@@ -110,7 +110,7 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
                                 sa3da.append('desc', addBook.desc)
                                 sa3da.append('price', addBook.price)
                                 sa3da.append('user', account._id)
-                                sa3da.append('img', img)
+                                // sa3da.append('img', img)
 
                                 axios.post('https://books-store-back.herokuapp.com/books/store/newBook', sa3da, {
                                     headers: {
@@ -258,18 +258,19 @@ const AddBook = ({ account, addItem, allBooks, accounts, name, author, publishin
                 </div>
 
             </div>
-            <h4 class="ui dividing header">Image</h4>
+             <h4 class="ui dividing header">Image</h4>
             <div class="field">
-                {/* <label>Send Receipt To:</label> */}
-                <input type='file' name='image' onChange={(e) => {
+            <input type='file' name='image'/>
+                {/* <input type='file' name='image' onChange={(e) => {
                     console.log('file', e.target.files[0])
                     setImg(e.target.files[0])
-                }}
-                />
+                }} 
+                />*/}
             </div>
-            <hr />
+            <hr /> 
+            {/* <hr /> */}
             {/* <input type="button" value='Add Book' onClick={handelClick} /> */}
-            <button type="button" class="btn btn-secondary" onClick={handelClick}>Add Book</button>
+            <button type="button" class="btn btn-secondary" onClick={addBookSubmitHandler}>Add Book</button>
             {/* <div class="ui button" tabindex="0" onClick={handelClick}>Submit Order</div> */}
             <ToastContainer />
 

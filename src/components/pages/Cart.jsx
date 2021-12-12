@@ -156,6 +156,7 @@ const Cart = ({ account }) => {
                                             <div className="ui divided items">
                                                 <div className="item">
                                                     <div className="image">
+                                                    {i.book.img ? (
                                                         <div style={{
                                                             backgroundImage: `url(${i.book.img})`,
                                                             height: '100%',
@@ -164,7 +165,9 @@ const Cart = ({ account }) => {
                                                             backgroundSize: 'cover',
                                                             backgroundRepeat: 'no-repeat'
                                                         }}></div>
-                                                    </div>
+                                                   
+                                                    ) : ''}
+                                                        </div> 
                                                     <div className="content">
                                                         <p className="header">Name: {i.book.name}</p>
                                                         <div className="meta">

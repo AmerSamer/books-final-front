@@ -205,7 +205,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
     const notify = (ms) => toast(ms);
     return (
         <div className="ui container">
-            {console.log("selectedBook",selectedBook.img.data)}
+            {/* {console.log("selectedBook", selectedBook.img.data)} */}
             <div className="users-details">
                 {
                     // allAccountBooks ? allAccountBooks.map((i, index) => {
@@ -215,10 +215,11 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                         <div className="ui divided items">
                             <div className="item">
                                 <div className="image">
-                                <img className='carouselImg' src={`data:image/png;base64,${selectedBook.img.data}`} alt='img' />
-                               
-                                {/* ${selectedBook.img.data} */}
-                                    {/* <div style={{
+                                    {/* {selectedBook && <img className='' src={`data:image/jpeg;base64,${selectedBook.img.data}`} alt='img' />} */}
+                                    {/* <img className='' src={`data:image/jpeg;base64,${selectedBook.img.data}`} alt='img' /> */}
+
+                                    {/* ${selectedBook.img.data} */}
+                                    <div style={{
                                         backgroundImage: `url(${selectedBook.img})`,
                                         height: '100%',
                                         width: '100%',
@@ -227,7 +228,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                                         backgroundRepeat: 'no-repeat'
                                     }}>
 
-                                    </div> */}
+                                    </div>
                                 </div>
                                 <div className="content">
                                     <p className="header">Name: {selectedBook.name}</p>
@@ -245,7 +246,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                                     </div>
                                     <div className="extra">
                                         {/* <p>rating: {selectedBook.rating}</p> */}
-                                        <hr/>
+                                        <hr />
                                         <div>rating: {newRating ? newRating : selectedBook.rating}</div>
 
                                         <div>comments: {selectedBookComm ? <div>{selectedBookComm.map((com) => {
@@ -265,9 +266,9 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                             <hr />
                             {messageToUser ? (
                                 <div>
-
+                                    {console.log(selectedBook.user.name)}
                                     <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Book Seller: @{account.name}</label>
+                                        <label for="exampleFormControlInput1" class="form-label">Book Seller: @{selectedBook.user.name}</label>
                                         {/* <label for="exampleFormControlInput1" class="form-label">Book Seller Name: @{account.name}</label> */}
                                         {/* <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title..." onChange={titleHandler} /> */}
                                     </div>
@@ -290,7 +291,7 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                         <hr />
 
                         <div>
-                            <select name="rating" id="rating" style={{width: '3vw', height:'6vh', color: 'gray'}} onChange={selectRatingHandler}>
+                            <select name="rating" id="rating" style={{ width: '3vw', height: '6vh', color: 'gray' }} onChange={selectRatingHandler}>
                                 <option name={'rating'} value="1">1</option>
                                 <option name={'rating'} value="2">2</option>
                                 <option name={'rating'} value="3">3</option>
@@ -306,16 +307,16 @@ const BookPage = ({ account, selectedBook, comments, rating }) => {
                         <div>
                             {/* <input type="text" name={'comments'} placeholder='Something To Say...' onChange={changeCommentHandler} /> */}
                             <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Comment:</label>
-                                        <textarea class="form-control" name={'comments'} id="exampleFormControlTextarea1" rows="3" onChange={changeCommentHandler}></textarea>
-                                    </div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Comment:</label>
+                                <textarea class="form-control" name={'comments'} id="exampleFormControlTextarea1" rows="3" onChange={changeCommentHandler}></textarea>
+                            </div>
                             <button type="button" class="btn btn-info" onClick={addCommentHandler}>Add Comment</button>
                             <ToastContainer />
                         </div>
                         <hr />
                         <div>
-                        <button type="button" class="btn btn-primary" onClick={addToCartHandler}>Add To Cart</button>
-                        <button type="button" class="btn btn-secondary" onClick={addToFavoritesHandler}>Add To BookMark</button>
+                            <button type="button" class="btn btn-primary" onClick={addToCartHandler}>Add To Cart</button>
+                            <button type="button" class="btn btn-secondary" onClick={addToFavoritesHandler}>Add To BookMark</button>
                             {/* <input type="button" value='Add To Cart 🛒' onClick={addToCartHandler} /> */}
                             {/* <input type="button" value='Add To Favorites ✰' onClick={addToFavoritesHandler} /> */}
                             <ToastContainer />
